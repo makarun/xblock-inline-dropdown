@@ -443,3 +443,44 @@ class InlineDropdownXBlock(XBlock):
                 'max_grade': self.weight,
             }
         )
+
+    @staticmethod
+    def workbench_scenarios():
+        """A canned scenario for display in the workbench."""
+        return [
+            ("InlineDropdownXBlock",
+             """<inline-dropdown/>
+             """),
+            ("Multiple InlineDropdownXBlock",
+             """<vertical_demo>
+                <inline-dropdown/>
+                <inline-dropdown/>
+                <inline-dropdown/>
+                </vertical_demo>
+             """),
+        ]
+
+    @staticmethod
+    def _get_statici18n_js_url():
+        """
+        Returns the Javascript translation file for the currently selected language, if any.
+        Defaults to English if available.
+        """
+        locale_code = translation.get_language()
+        if locale_code is None:
+            return None
+        text_js = 'public/js/translations/{locale_code}/text.js'
+        lang_code = locale_code.split('-')[0]
+        for code in (locale_code, lang_code, 'en'):
+            loader = ResourceLoader(__name__)
+            if pkg_resources.resource_exists(
+                    loader.module_name, text_js.format(locale_code=code)):
+                return text_js.format(locale_code=code)
+        return None
+
+    @staticmethod
+    def get_dummy():
+        """
+        Dummy method to generate initial i18n
+        """
+        return translation.gettext_noop('Dummy')
