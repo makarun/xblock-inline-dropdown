@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-20 17:39+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: inline_dropdown.py:35 static/html/inline_dropdown_edit.html:8
+msgid "Display Name"
+msgstr ""
+
+#: inline_dropdown.py:36
+msgid "Inline Dropdown"
+msgstr ""
+
+#: inline_dropdown.py:38 static/html/inline_dropdown_edit.html:11
+msgid "This name appears in the horizontal navigation at the top of the page"
+msgstr ""
+
+#: inline_dropdown.py:44
+msgid "Hints for the question"
+msgstr ""
+
+#: inline_dropdown.py:48
+msgid "Default question content "
+msgstr ""
+
+#: inline_dropdown.py:50
+msgid ""
+"\n"
+"            <inline_dropdown schema_version='1'>\n"
+"                <body>\n"
+"                    <p>A fruit is the fertilized ovary of a tree or plant "
+"and contains seeds. Given this, a <input_ref input=\"i1\"/> is consider a "
+"fruit, while a <input_ref input=\"i2\"/> is considered a vegetable.</p>\n"
+"                </body>\n"
+"                <optionresponse>\n"
+"                    <optioninput id=\"i1\">\n"
+"                        <option correct=\"True\">tomato<optionhint>Since the "
+"tomato is the fertilized ovary of a tomato plant and contains seeds, it is a "
+"fruit.</optionhint></option>\n"
+"                        <option correct=\"False\">potato<optionhint>A potato "
+"is an edible part of a plant in tuber form and is a vegetable, not a fruit.</"
+"optionhint></option>\n"
+"                    </optioninput>\n"
+"                </optionresponse>\n"
+"                <optionresponse>\n"
+"                    <optioninput id=\"i2\">\n"
+"                        <option correct=\"False\">cucumber<optionhint>Many "
+"people mistakenly think a cucumber is a vegetable. However, because a "
+"cucumber is the fertilized ovary of a cucumber plant and contains seeds, it "
+"is a fruit.</optionhint></option>\n"
+"                        <option correct=\"True\">onion<optionhint>The onion "
+"is the bulb of the onion plant and contains no seeds and is therefore a "
+"vegetable.</optionhint></option>\n"
+"                    </optioninput>\n"
+"                </optionresponse>\n"
+"                <demandhint>\n"
+"                    <hint>A fruit is the fertilized ovary from a flower.</"
+"hint>\n"
+"                    <hint>A fruit contains seeds of the plant.</hint>\n"
+"                </demandhint>\n"
+"            </inline_dropdown>\n"
+"        "
+msgstr ""
+
+#: inline_dropdown.py:82
+msgid "Correctness of input values"
+msgstr ""
+
+#: inline_dropdown.py:88
+msgid "Order of selections in body"
+msgstr ""
+
+#: inline_dropdown.py:94
+msgid "Saved student input values"
+msgstr ""
+
+#: inline_dropdown.py:100
+msgid "Saved student correctness values"
+msgstr ""
+
+#: inline_dropdown.py:106
+msgid "Feedback for input values"
+msgstr ""
+
+#: inline_dropdown.py:112
+msgid "Current feedback state"
+msgstr ""
+
+#: inline_dropdown.py:118
+msgid "Indicates whether the learner has completed the problem at least once"
+msgstr ""
+
+#: inline_dropdown.py:124 static/html/inline_dropdown_edit.html:16
+msgid "Weight"
+msgstr ""
+
+#: inline_dropdown.py:126 static/html/inline_dropdown_edit.html:19
+msgid "This assigns an integer value representing the weight of this problem"
+msgstr ""
+
+#: inline_dropdown.py:419
+#, python-brace-format
+msgid "{weight} point possible"
+msgid_plural "{weight} points possible"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inline_dropdown.py:428
+#, python-brace-format
+msgid "/{weight} point"
+msgid_plural "/{weight} points"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inline_dropdown.py:495
+msgid "Dummy"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:24
+msgid "Definition"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:25
+msgid "The XML definition for the problem"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:37
+msgid "Save"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:40
+msgid "Cancel"
+msgstr ""
