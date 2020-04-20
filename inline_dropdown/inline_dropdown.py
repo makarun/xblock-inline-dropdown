@@ -3,6 +3,7 @@
 import pkg_resources
 from django.template import Context, Template
 from django.utils.translation import ungettext
+from django.utils.translation import ugettext_lazy
 
 from xblock.core import XBlock
 from xblock.fields import Scope, String, List, Float, Integer, Dict, Boolean
@@ -17,7 +18,10 @@ from StringIO import StringIO
 import textwrap
 import operator
 
+# from django.utils.translation import ugettext as _
+_ = lambda text: text
 
+@XBlock.needs('i18n')
 class InlineDropdownXBlock(XBlock):
     '''
     Icon of the XBlock. Values : [other (default), video, problem]
@@ -28,43 +32,46 @@ class InlineDropdownXBlock(XBlock):
     Fields
     '''
     display_name = String(
-        display_name='Display Name',
-        default='Inline Dropdown',
+        display_name=_('Display Name'),
+        default=_('Inline Dropdown'),
         scope=Scope.settings,
-        help='This name appears in the horizontal navigation at the top of the page')
+        help=_('This name appears in the horizontal navigation at the top of the page')
+    )
 
     hints = List(
         default=[],
         scope=Scope.content,
-        help='Hints for the question',
+        help=_('Hints for the question'),
     )
 
     question_string = String(
-        help='Default question content ',
+        help=_('Default question content '),
         scope=Scope.content,
-        default=textwrap.dedent('''
+        default=textwrap.dedent(_('''
             <inline_dropdown schema_version='1'>
                 <body>
                     <p>A fruit is the fertilized ovary of a tree or plant and contains seeds. Given this, a <input_ref input="i1"/> is consider a fruit, while a <input_ref input="i2"/> is considered a vegetable.</p>
                 </body>
                 <optionresponse>
-                	<optioninput id="i1">
-                		<option correct="True">tomato<optionhint>Since the tomato is the fertilized ovary of a tomato plant and contains seeds, it is a fruit.</optionhint></option>
-                		<option correct="False">potato<optionhint>A potato is an edible part of a plant in tuber form and is a vegetable, not a fruit.</optionhint></option>
-                	</optioninput>
+                    <optioninput id="i1">
+                        <option correct="True">tomato<optionhint>Since the tomato is the fertilized ovary of a tomato plant and contains seeds, it is a fruit.</optionhint></option>
+                        <option correct="False">potato<optionhint>A potato is an edible part of a plant in tuber form and is a vegetable, not a fruit.</optionhint></option>
+                    </optioninput>
                 </optionresponse>
                 <optionresponse>
-                	<optioninput id="i2">
-                		<option correct="False">cucumber<optionhint>Many people mistakenly think a cucumber is a vegetable. However, because a cucumber is the fertilized ovary of a cucumber plant and contains seeds, it is a fruit.</optionhint></option>
-                		<option correct="True">onion<optionhint>The onion is the bulb of the onion plant and contains no seeds and is therefore a vegetable.</optionhint></option>
-                	</optioninput>
+                    <optioninput id="i2">
+                        <option correct="False">cucumber<optionhint>Many people mistakenly think a cucumber is a vegetable. However, because a cucumber is the fertilized ovary of a cucumber plant and contains seeds, it is a fruit.</optionhint></option>
+                        <option correct="True">onion<optionhint>The onion is the bulb of the onion plant and contains no seeds and is therefore a vegetable.</optionhint></option>
+                    </optioninput>
                 </optionresponse>
                 <demandhint>
                     <hint>A fruit is the fertilized ovary from a flower.</hint>
                     <hint>A fruit contains seeds of the plant.</hint>
                 </demandhint>
             </inline_dropdown>
-        '''))
+        ''')),
+        # default=textwrap.dedent(str(default_question))
+    )
 
     score = Float(
         default=0.0,
@@ -72,51 +79,53 @@ class InlineDropdownXBlock(XBlock):
     )
 
     correctness = Dict(
-        help='Correctness of input values',
+        help=_('Correctness of input values'),
         scope=Scope.user_state,
         default={},
     )
 
     selection_order = Dict(
-        help='Order of selections in body',
+        help=_('Order of selections in body'),
         scope=Scope.user_state,
         default={},
     )
 
     selections = Dict(
-        help='Saved student input values',
+        help=_('Saved student input values'),
         scope=Scope.user_state,
         default={},
     )
 
     student_correctness = Dict(
-        help='Saved student correctness values',
+        help=_('Saved student correctness values'),
         scope=Scope.user_state,
         default={},
     )
 
     feedback = Dict(
-        help='Feedback for input values',
+        help=_('Feedback for input values'),
         scope=Scope.user_state,
         default={},
     )
 
     current_feedback = String(
-        help='Current feedback state',
+        help=_('Current feedback state'),
         scope=Scope.user_state,
         default='',
     )
 
     completed = Boolean(
-        help='Indicates whether the learner has completed the problem at least once',
+        help=_('Indicates whether the learner has completed the problem at least once'),
         scope=Scope.user_state,
         default=False,
     )
 
     weight = Integer(
-        display_name='Weight',
-        help='This assigns an integer value representing '
-             'the weight of this problem',
+        display_name=_('Weight'),
+        help=_(
+            'This assigns an integer value representing '
+            'the weight of this problem'
+        ),
         default=2,
         scope=Scope.settings,
     )
