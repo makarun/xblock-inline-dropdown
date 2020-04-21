@@ -20,23 +20,23 @@ msgstr ""
 
 #: inline_dropdown.py:35 static/html/inline_dropdown_edit.html:8
 msgid "Display Name"
-msgstr ""
+msgstr "Nazwa"
 
 #: inline_dropdown.py:36
 msgid "Inline Dropdown"
-msgstr ""
+msgstr "Zagnieżdżone z rozwijaną listą wyboru"
 
 #: inline_dropdown.py:38 static/html/inline_dropdown_edit.html:11
 msgid "This name appears in the horizontal navigation at the top of the page"
-msgstr ""
+msgstr "Ta nazwa pojawia się w nawigacji na górze strony"
 
 #: inline_dropdown.py:44
 msgid "Hints for the question"
-msgstr ""
+msgstr "Podpowiedź do pytania"
 
 #: inline_dropdown.py:48
 msgid "Default question content "
-msgstr ""
+msgstr "Domyśla treść pytania"
 
 #: inline_dropdown.py:50
 msgid ""
@@ -76,10 +76,44 @@ msgid ""
 "            </inline_dropdown>\n"
 "        "
 msgstr ""
+"\n"
+"            <inline_dropdown schema_version='1'>\n"
+"                <body>\n"
+"                    <p>Owoce powstają z kwiatów drzew, krzewów i roślin ogrodowych oraz zawierają nasiona. "
+". W związku z tym, <input_ref input=\"i1\"/> jest owocem a "
+"<input_ref input=\"i2\"/> jest warzywem.</p>\n"
+"                </body>\n"
+"                <optionresponse>\n"
+"                    <optioninput id=\"i1\">\n"
+"                        <option correct=\"True\">pomidor<optionhint>W związku z tym, że "
+"pomidor powstaje z kwiata i zawiera nasiona jest "
+"owocem.</optionhint></option>\n"
+"                        <option correct=\"False\">ziemniak<optionhint>Ziemniak "
+"jest jadalną częścią rośliny w postaci bulwy i jest warzywem, nie owocem.</"
+"optionhint></option>\n"
+"                    </optioninput>\n"
+"                </optionresponse>\n"
+"                <optionresponse>\n"
+"                    <optioninput id=\"i2\">\n"
+"                        <option correct=\"False\">ogórek<optionhint>Wiele "
+"osób błędnie uważa ogórka za warzywo. Ze wzędu na to, że ogórek "
+"zawiera nasiona i powstaje z kwiatu "
+"jest owocem.</optionhint></option>\n"
+"                        <option correct=\"True\">cebula<optionhint>Cebula wyrasta "
+"z cebulki, nie zawiera nasion więc jest warzywem.</optionhint></option>\n"
+"                    </optioninput>\n"
+"                </optionresponse>\n"
+"                <demandhint>\n"
+"                    <hint>Owoc zawiera nasiona i powstaje z kwiatu.</"
+"hint>\n"
+"                    <hint>Owoc zawiera nasiona rośliny.</hint>\n"
+"                </demandhint>\n"
+"            </inline_dropdown>\n"
+"        "
 
 #: inline_dropdown.py:82
 msgid "Correctness of input values"
-msgstr ""
+msgstr "Poprawność wprowadzonych danych"
 
 #: inline_dropdown.py:88
 msgid "Order of selections in body"
@@ -107,7 +141,7 @@ msgstr ""
 
 #: inline_dropdown.py:124 static/html/inline_dropdown_edit.html:16
 msgid "Weight"
-msgstr ""
+msgstr "Waga"
 
 #: inline_dropdown.py:126 static/html/inline_dropdown_edit.html:19
 msgid "This assigns an integer value representing the weight of this problem"
@@ -117,8 +151,8 @@ msgstr ""
 #, python-brace-format
 msgid "{weight} point possible"
 msgid_plural "{weight} points possible"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{weight} punkt"
+msgstr[1] "{weight} punkty"
 
 #: inline_dropdown.py:428
 #, python-brace-format
@@ -133,16 +167,16 @@ msgstr ""
 
 #: static/html/inline_dropdown_edit.html:24
 msgid "Definition"
-msgstr ""
+msgstr "Definicja"
 
 #: static/html/inline_dropdown_edit.html:25
 msgid "The XML definition for the problem"
-msgstr ""
+msgstr "XML definicja problemu"
 
 #: static/html/inline_dropdown_edit.html:37
 msgid "Save"
-msgstr ""
+msgstr "Zapisz"
 
 #: static/html/inline_dropdown_edit.html:40
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
