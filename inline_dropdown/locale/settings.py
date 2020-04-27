@@ -37,6 +37,10 @@ STATIC_URL = '/static/'
 
 # statici18n
 # http://django-statici18n.readthedocs.io/en/latest/settings.html
+LANGUAGES = [
+    ('en', 'English - Source Language'),
+    ('pl', 'Polski'),
+]
 
 STATICI18N_DOMAIN = 'text'
 STATICI18N_PACKAGES = (
