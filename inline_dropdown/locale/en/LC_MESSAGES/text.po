@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 12:48+0200\n"
+"POT-Creation-Date: 2020-04-27 16:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,6 +111,18 @@ msgstr ""
 
 #: inline_dropdown.py:126 static/html/inline_dropdown_edit.html:19
 msgid "This assigns an integer value representing the weight of this problem"
+msgstr ""
+
+#: inline_dropdown.py:202 inline_dropdown.py:205
+msgid "Correct"
+msgstr ""
+
+#: inline_dropdown.py:213 inline_dropdown.py:216
+msgid "Incorrect"
+msgstr ""
+
+#: inline_dropdown.py:318 inline_dropdown.py:322
+msgid "Hint"
 msgstr ""
 
 #: inline_dropdown.py:419

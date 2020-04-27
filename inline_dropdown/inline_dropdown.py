@@ -199,10 +199,10 @@ class InlineDropdownXBlock(XBlock):
             selected_text = self.selections[key]
 
             if self.correctness[key][selected_text] == 'True':
-                default_feedback = '<p class="correct"><strong>(' + str(pos) + ') Correct</strong></p>'
+                default_feedback = '<p class="correct"><strong>(' + str(pos) + ') ' + _('Correct') + '</strong></p>'
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="correct"><strong>(' + str(pos) + ') Correct: </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<p class="correct"><strong>(' + str(pos) + ') ' + _('Correct') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -210,10 +210,10 @@ class InlineDropdownXBlock(XBlock):
                 self.student_correctness[key] = 'True'
                 correct_count += 1
             else:
-                default_feedback = '<p class="incorrect"><strong>(' + str(pos) + ') Incorrect</strong></p>'
+                default_feedback = '<p class="incorrect"><strong>(' + str(pos) + ') ' + _('Incorrect') + '</strong></p>'
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="incorrect"><strong>(' + str(pos) + ') Incorrect: </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<p class="incorrect"><strong>(' + str(pos) + ') ' + _('Incorrect') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -315,11 +315,11 @@ class InlineDropdownXBlock(XBlock):
         decorated_hints = list()
 
         if len(raw_hints) == 1:
-            hint = 'Hint: ' + etree.tostring(raw_hints[0], encoding='unicode')
+            hint = _('Hint') + ': ' + etree.tostring(raw_hints[0], encoding='unicode')
             decorated_hints.append(hint)
         else:
             for i in range(len(raw_hints)):
-                hint = 'Hint ({number} of {total}): {hint}'.format(
+                hint = _('Hint') + ' ({number} / {total}): {hint}'.format(
                     number=i + 1,
                     total=len(raw_hints),
                     hint=etree.tostring(raw_hints[i], encoding='unicode'))
