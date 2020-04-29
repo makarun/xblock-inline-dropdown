@@ -2,7 +2,7 @@
 
 .PHONY: dev.clean dev.build dev.run
 
-REPO_NAME := xblock-inline-dropdow
+REPO_NAME := xblock-inline-dropdown
 PACKAGE_NAME := inline_dropdown
 EXTRACT_DIR := $(PACKAGE_NAME)/locale/en/LC_MESSAGES
 EXTRACTED_DJANGO := $(EXTRACT_DIR)/django-partial.po

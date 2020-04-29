@@ -1,28 +1,35 @@
 '''  Inline Dropdown XBlock main Python class'''
 
-import pkg_resources
-from django.template import Context, Template
-from django.utils.translation import ungettext
-from django.utils.translation import ugettext_lazy
-
-from xblock.core import XBlock
-from xblock.fields import Scope, String, List, Float, Integer, Dict, Boolean
-from xblock.fragment import Fragment
-
-from lxml import etree
-from xml.etree import ElementTree as ET
+import textwrap
+from StringIO import StringIO
 from xml.etree.ElementTree import Element, SubElement
 
-from StringIO import StringIO
+import pkg_resources
+from django.template import Context, Template
+from django.utils import translation
+from lxml import etree
+from xblock.core import XBlock
+from xblock.fields import Boolean, Dict, Float, Integer, List, Scope, String
+from xblock.fragment import Fragment
+from xblockutils.resources import ResourceLoader
+from .utils import _, DummyTranslationService, ngettext_fallback
 
-import textwrap
-import operator
+class XBlockWithTranslationServiceMixin(object):
+    """
+    Mixin providing access to i18n service
+    """
+    def _(self, text):
+        """ Translate text """
+        # noinspection PyUnresolvedReferences
+        return self.runtime.service(self, "i18n").ugettext(text)
 
-# from django.utils.translation import ugettext as _
-_ = lambda text: text
+    def ungettext(self, single, plural, number):
+        return  self.runtime.service(self, "i18n").ungettext(single, plural, number)
+
 
 @XBlock.needs('i18n')
-class InlineDropdownXBlock(XBlock):
+class InlineDropdownXBlock(XBlock, XBlockWithTranslationServiceMixin):
+
     '''
     Icon of the XBlock. Values : [other (default), video, problem]
     '''
@@ -35,7 +42,7 @@ class InlineDropdownXBlock(XBlock):
         display_name=_('Display Name'),
         default=_('Inline Dropdown'),
         scope=Scope.settings,
-        help=_('This name appears in the horizontal navigation at the top of the page')
+        #help=_('This name appears in the horizontal navigation at the top of the page')
     )
 
     hints = List(
@@ -70,7 +77,6 @@ class InlineDropdownXBlock(XBlock):
                 </demandhint>
             </inline_dropdown>
         ''')),
-        # default=textwrap.dedent(str(default_question))
     )
 
     score = Float(
@@ -115,7 +121,8 @@ class InlineDropdownXBlock(XBlock):
     )
 
     completed = Boolean(
-        help=_('Indicates whether the learner has completed the problem at least once'),
+        help=_(
+            'Indicates whether the learner has completed the problem at least once'),
         scope=Scope.user_state,
         default=False,
     )
@@ -135,6 +142,7 @@ class InlineDropdownXBlock(XBlock):
     '''
     Main functions
     '''
+
     def student_view(self, context=None):
         '''
         The primary view of the XBlock, shown to students
@@ -144,13 +152,16 @@ class InlineDropdownXBlock(XBlock):
         prompt = self._get_body(self.question_string)
 
         attributes = ''
-        html = self.resource_string('static/html/inline_dropdown_view.html')
-        frag = Fragment(html.format(display_name=self.display_name,
+        #html = self.resource_string('static/html/inline_dropdown_view.html')
+        html = self.render_template('static/html/inline_dropdown_view.html',
+                                    context)
+        frag = Fragment(html.format(display_name=self._(self.display_name),
                                     problem_progress=problem_progress,
                                     prompt=prompt,
                                     attributes=attributes))
         frag.add_css(self.resource_string('static/css/inline_dropdown.css'))
-        frag.add_javascript(self.resource_string('static/js/inline_dropdown_view.js'))
+        frag.add_javascript(
+            self.resource_string('static/js/inline_dropdown_view.js'))
         frag.initialize_js('InlineDropdownXBlockInitView')
         return frag
 
@@ -160,14 +171,16 @@ class InlineDropdownXBlock(XBlock):
         when editing the XBlock.
         '''
         context = {
-            'display_name': self.display_name,
+            'display_name': self._(self.display_name),
             'weight': self.weight,
             'xml_data': self.question_string,
         }
-        html = self.render_template('static/html/inline_dropdown_edit.html', context)
+        html = self.render_template('static/html/inline_dropdown_edit.html',
+                                    context)
 
         frag = Fragment(html)
-        frag.add_javascript(self.load_resource('static/js/inline_dropdown_edit.js'))
+        frag.add_javascript(
+            self.load_resource('static/js/inline_dropdown_edit.js'))
         frag.initialize_js('InlineDropdownXBlockInitEdit')
         return frag
 
@@ -195,14 +208,19 @@ class InlineDropdownXBlock(XBlock):
         correct_count = 0
 
         # use sorted selection_order to iterate through selections dict
-        for key,pos in sorted(self.selection_order.iteritems(), key=lambda (k,v): (v,k)):
+        for key, pos in sorted(self.selection_order.iteritems(),
+                               key=lambda (k, v): (v, k)):
             selected_text = self.selections[key]
 
             if self.correctness[key][selected_text] == 'True':
-                default_feedback = '<p class="correct"><strong>(' + str(pos) + ') ' + _('Correct') + '</strong></p>'
+                default_feedback = '<p class="correct"><strong>(' + str(
+                    pos) + ') ' + self._('Correct') + '</strong></p>'
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="correct"><strong>(' + str(pos) + ') ' + _('Correct') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<p class="correct"><strong>(' + str(
+                            pos) + ') ' + self._('Correct') + ': </strong>' + \
+                                                 self.feedback[key][
+                                                     selected_text] + '</p>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -210,10 +228,14 @@ class InlineDropdownXBlock(XBlock):
                 self.student_correctness[key] = 'True'
                 correct_count += 1
             else:
-                default_feedback = '<p class="incorrect"><strong>(' + str(pos) + ') ' + _('Incorrect') + '</strong></p>'
+                default_feedback = '<p class="incorrect"><strong>(' + str(
+                    pos) + ') ' + self._('Incorrect') + '</strong></p>'
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="incorrect"><strong>(' + str(pos) + ') ' + _('Incorrect') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<p class="incorrect"><strong>(' + str(
+                            pos) + ') ' + self._('Incorrect') + ': </strong>' + \
+                                                 self.feedback[key][
+                                                     selected_text] + '</p>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -315,11 +337,12 @@ class InlineDropdownXBlock(XBlock):
         decorated_hints = list()
 
         if len(raw_hints) == 1:
-            hint = _('Hint') + ': ' + etree.tostring(raw_hints[0], encoding='unicode')
+            hint = self._('Hint') + ': ' + etree.tostring(raw_hints[0],
+                                                     encoding='unicode')
             decorated_hints.append(hint)
         else:
             for i in range(len(raw_hints)):
-                hint = _('Hint') + ' ({number} / {total}): {hint}'.format(
+                hint = self._('Hint') + ' ({number} / {total}): {hint}'.format(
                     number=i + 1,
                     total=len(raw_hints),
                     hint=etree.tostring(raw_hints[i], encoding='unicode'))
@@ -337,7 +360,8 @@ class InlineDropdownXBlock(XBlock):
         try:
             event_type = data.pop('event_type')
         except KeyError:
-            return {'result': 'error', 'message': 'Missing event_type in JSON data'}
+            return {'result': 'error',
+                    'message': 'Missing event_type in JSON data'}
 
         data['user_id'] = self.scope_ids.user_id
         data['component_id'] = self._get_unique_id()
@@ -348,11 +372,13 @@ class InlineDropdownXBlock(XBlock):
     '''
     Util functions
     '''
+
     def load_resource(self, resource_path):
         '''
         Gets the content of a resource
         '''
-        resource_content = pkg_resources.resource_string(__name__, resource_path)
+        resource_content = pkg_resources.resource_string(__name__,
+                                                         resource_path)
         return unicode(resource_content)
 
     def render_template(self, template_path, context={}):
@@ -389,10 +415,11 @@ class InlineDropdownXBlock(XBlock):
                         for optionhint in option.iter('optionhint'):
                             valuefeedback[option.text] = optionhint.text
                     input_ref.tag = 'select'
-                    input_ref.attrib['xblock_id'] = unicode(self.scope_ids.usage_id)
-                    self.correctness[optioninput.attrib['id']] = valuecorrectness
+                    input_ref.attrib['xblock_id'] = unicode(
+                        self.scope_ids.usage_id)
+                    self.correctness[
+                        optioninput.attrib['id']] = valuecorrectness
                     self.feedback[optioninput.attrib['id']] = valuefeedback
-
 
         body = tree.xpath('/inline_dropdown/body')
 
@@ -402,7 +429,7 @@ class InlineDropdownXBlock(XBlock):
 
     def _get_unique_id(self):
         try:
-        	unique_id = self.location.name
+            unique_id = self.location.name
         except AttributeError:
             # workaround for xblock workbench
             unique_id = 'workbench-workaround-id'
@@ -415,7 +442,7 @@ class InlineDropdownXBlock(XBlock):
         """
         result = ''
         if self.score == 0.0:
-            result = ungettext(
+            result = self.ungettext(
                 '{weight} point possible',
                 '{weight} points possible',
                 self.weight,
@@ -424,9 +451,9 @@ class InlineDropdownXBlock(XBlock):
             )
         else:
             score_string = '{0:g}'.format(self.score)
-            result = ungettext(
-                score_string + '/' + "{weight} point",
-                score_string + '/' + "{weight} points",
+            result = score_string + self.ungettext(
+                 '/' + "{weight} point",
+                 '/' + "{weight} points",
                 self.weight,
             ).format(
                 weight=self.weight
@@ -468,6 +495,15 @@ class InlineDropdownXBlock(XBlock):
                 </vertical_demo>
              """),
         ]
+
+    @property
+    def i18n_service(self):
+        """ Obtains translation service """
+        i18n_service = self.runtime.service(self, "i18n")
+        if i18n_service:
+            return i18n_service
+        else:
+            return DummyTranslationService()
 
     @staticmethod
     def _get_statici18n_js_url():

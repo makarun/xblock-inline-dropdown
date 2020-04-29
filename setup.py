@@ -21,7 +21,7 @@ def package_data(pkg, roots):
 
 
 setup(
-    name='xblock-inline-dropdow',
+    name='xblock-inline-dropdown',
     version='0.2',
     description='Inline Dropdown Problem XBlock',   # TODO: write a better description.
     license='AGPL v3',
@@ -36,5 +36,5 @@ setup(
             'inline-dropdown = inline_dropdown:InlineDropdownXBlock',
         ]
     },
-    package_data=package_data("inline_dropdown", ["static", "public", "translations"]),
+    package_data=package_data("inline_dropdown", ["static", "public", "translations", "templatetags", "locale"]),
 )

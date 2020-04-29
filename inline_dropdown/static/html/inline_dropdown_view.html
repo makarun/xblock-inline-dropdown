@@ -1,3 +1,5 @@
+{% load xblock_i18n %}
+
 <div class='inline_dropdown'>
 	<h2 class='problem_header'>{display_name}</h2>
 	<div class='problem_progress'>({problem_progress})</div>
@@ -9,19 +11,19 @@
 			<input 
 			class='check_button' 
 			type='button'
-			value='Check'></input>
+			value='{% trans 'Check'%}'></input>
 		</div>
 		<div class='hint_button_holder' style='display:none'>
 			<input 
 			class='hint_button' 
 			type='button' 
-			value='Hint'></input>
+			value='{% trans 'Hint'%}'></input>
 		</div>
 		<div style='display:inline'>
 			<input 
 			class='reset_button' 
 			type='button' 
-			value='Reset'></input>
+			value='{% trans 'Reset'%}'></input>
 		</div>
 	</div>
 </div>
