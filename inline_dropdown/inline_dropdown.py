@@ -49,7 +49,7 @@ class InlineDropdownXBlock(XBlock):
     question_string = String(
         help=_('Default question content '),
         scope=Scope.content,
-        default=textwrap.dedent(_('''
+        default=_('''
             <inline_dropdown schema_version='1'>
                 <body>
                     <p>A fruit is the fertilized ovary of a tree or plant and contains seeds. Given this, a <input_ref input="i1"/> is consider a fruit, while a <input_ref input="i2"/> is considered a vegetable.</p>
@@ -71,7 +71,7 @@ class InlineDropdownXBlock(XBlock):
                     <hint>A fruit contains seeds of the plant.</hint>
                 </demandhint>
             </inline_dropdown>
-        ''')),
+        '''),
         # default=textwrap.dedent(str(default_question))
     )
 
@@ -144,11 +144,11 @@ class InlineDropdownXBlock(XBlock):
         '''
         frag = Fragment()
         attributes = ''
-
+        i18n_ = self.runtime.service(self, "i18n").ugettext
         ctx = {
             'display_name': self.display_name,
             'problem_progress': self._get_problem_progress(),
-            'prompt': self._get_body(self.question_string),
+            'prompt': self._get_body(i18n_(self.question_string)),
             'attributes': attributes
         }
 
@@ -428,7 +428,7 @@ class InlineDropdownXBlock(XBlock):
         """
         result = ''
         if self.score == 0.0:
-            result = ungettext(
+            result = _(
                 '{weight} point possible',
                 '{weight} points possible',
                 self.weight,
