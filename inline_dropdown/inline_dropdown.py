@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy
 from xblock.core import XBlock
 from xblock.fields import Scope, String, List, Float, Integer, Dict, Boolean
 from xblock.fragment import Fragment
+from xblockutils.resources import ResourceLoader
 
 from lxml import etree
 from xml.etree import ElementTree as ET
@@ -20,6 +21,7 @@ import operator
 
 # from django.utils.translation import ugettext as _
 _ = lambda text: text
+loader = ResourceLoader(__name__)
 
 @XBlock.needs('i18n')
 class InlineDropdownXBlock(XBlock):
@@ -159,15 +161,19 @@ class InlineDropdownXBlock(XBlock):
         The secondary view of the XBlock, shown to teachers
         when editing the XBlock.
         '''
-        context = {
+        frag = Fragment()
+        ctx = {
             'display_name': self.display_name,
             'weight': self.weight,
             'xml_data': self.question_string,
         }
-        html = self.render_template('static/html/inline_dropdown_edit.html', context)
+        frag.add_content(loader.render_django_template(
+            'static/html/inline_dropdown_edit.html',
+            context = ctx,
+            i18n_service=self.runtime.service(self, "i18n"),
+        ))
 
-        frag = Fragment(html)
-        frag.add_javascript(self.load_resource('static/js/inline_dropdown_edit.js'))
+        frag.add_javascript(loader.load_unicode('static/js/inline_dropdown_edit.js'))
         frag.initialize_js('InlineDropdownXBlockInitEdit')
         return frag
 
