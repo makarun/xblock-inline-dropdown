@@ -142,17 +142,24 @@ class InlineDropdownXBlock(XBlock):
         The primary view of the XBlock, shown to students
         when viewing courses.
         '''
-        problem_progress = self._get_problem_progress()
-        prompt = self._get_body(self.question_string)
-
+        frag = Fragment()
         attributes = ''
-        html = self.resource_string('static/html/inline_dropdown_view.html')
-        frag = Fragment(html.format(display_name=self.display_name,
-                                    problem_progress=problem_progress,
-                                    prompt=prompt,
-                                    attributes=attributes))
-        frag.add_css(self.resource_string('static/css/inline_dropdown.css'))
-        frag.add_javascript(self.resource_string('static/js/inline_dropdown_view.js'))
+
+        ctx = {
+            'display_name': self.display_name,
+            'problem_progress': self._get_problem_progress(),
+            'prompt': self._get_body(self.question_string),
+            'attributes': attributes
+        }
+
+        frag.add_content(loader.render_django_template(
+            'static/html/inline_dropdown_view.html',
+            context = ctx,
+            i18n_service=self.runtime.service(self, "i18n"),
+        ))
+
+        frag.add_css(loader.load_unicode('static/css/inline_dropdown.css'))
+        frag.add_javascript(loader.load_unicode('static/js/inline_dropdown_view.js'))
         frag.initialize_js('InlineDropdownXBlockInitView')
         return frag
 
