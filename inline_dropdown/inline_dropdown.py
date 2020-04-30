@@ -134,7 +134,7 @@ class InlineDropdownXBlock(XBlock):
     )
 
     has_score = True
-
+    skip_flag = False
     '''
     Main functions
     '''
@@ -143,6 +143,7 @@ class InlineDropdownXBlock(XBlock):
         The primary view of the XBlock, shown to students
         when viewing courses.
         '''
+        self.init_emulation()
         frag = Fragment()
         attributes = ''
         i18n_ = self.runtime.service(self, "i18n").ugettext
@@ -170,6 +171,7 @@ class InlineDropdownXBlock(XBlock):
         The secondary view of the XBlock, shown to teachers
         when editing the XBlock.
         '''
+        self.init_emulation()
         frag = Fragment()
         ctx = {
             'display_name': self.display_name,
@@ -441,10 +443,10 @@ class InlineDropdownXBlock(XBlock):
             )
         else:
             score_string = '{0:g}'.format(self.score)
-            result = i18n_(
-                score_string + '/' + "{weight} point",
-                score_string + '/' + "{weight} points",
-                self.weight,
+            result = score_string + i18n_(
+                "/{weight} point",
+                "/{weight} points",
+                int(score_string),
             ).format(
                 weight=self.weight
             )
@@ -478,6 +480,15 @@ class InlineDropdownXBlock(XBlock):
         except IOError:
             return self.resource_string('static/js/translations/en/text.js')
 
+    def init_emulation(self):
+        """
+        Emulation of init function, for translation purpose.
+        """
+        if not self.skip_flag:
+            i18n_ = self.runtime.service(self, "i18n").ugettext
+            #     self.display_name = _(self.display_name)
+            self.fields['display_name']._default = i18n_(self.fields['display_name']._default)
+            self.skip_flag = True
 
     @staticmethod
     def workbench_scenarios():

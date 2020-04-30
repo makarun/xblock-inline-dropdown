@@ -159,12 +159,16 @@ msgstr "Źle"
 msgid "Hint"
 msgstr "Podpowiedź"
 
-#: inline_dropdown.py:432
+#: inline_dropdown.py:435
 #, python-brace-format
 msgid "{weight} point possible"
-msgstr "{weight} możliwy punkt"
+msgid_plural "{weight} points possible"
+msgstr[0] "{weight} możliwy punkt"
+msgstr[1] "{weight} możliwe punkty"
+msgstr[2] "{weight} możliwe punkty"
+msgstr[3] "{weight} możliwych punktów"
 
-#: inline_dropdown.py:441
+#: inline_dropdown.py:444
 #, python-brace-format
 msgid "/{weight} point"
 msgid_plural "/{weight} points"

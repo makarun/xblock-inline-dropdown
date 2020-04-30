@@ -48,7 +48,12 @@
     "This name appears in the horizontal navigation at the top of the page": "Ta nazwa pojawia si\u0119 w nawigacji na g\u00f3rze strony", 
     "Weight": "Waga", 
     "You haven't completed the question.": "Nie wype\u0142ni\u0142e\u015b pytania.", 
-    "{weight} point possible": "{weight} mo\u017cliwy punkt"
+    "{weight} point possible": [
+      "{weight} mo\u017cliwy punkt", 
+      "{weight} mo\u017cliwe punkty", 
+      "{weight} mo\u017cliwe punkty", 
+      "{weight} mo\u017cliwych punkt\u00f3w"
+    ]
   };
 
   django.gettext = function (msgid) {
