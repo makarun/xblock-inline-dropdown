@@ -324,7 +324,8 @@ class InlineDropdownXBlock(XBlock):
 
     @XBlock.json_handler
     def send_hints(self, submissions, suffix=''):
-        tree = etree.parse(StringIO(self.question_string))
+        i18n_ = self.runtime.service(self, "i18n").ugettext
+        tree = etree.parse(StringIO(i18n_(self.question_string)))
         raw_hints = tree.xpath('/inline_dropdown/demandhint/hint')
 
         decorated_hints = list()
