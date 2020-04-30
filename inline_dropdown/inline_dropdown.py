@@ -208,16 +208,16 @@ class InlineDropdownXBlock(XBlock):
         self.current_feedback = ''
 
         correct_count = 0
-
+        i18n_ = self.runtime.service(self, "i18n").ugettext
         # use sorted selection_order to iterate through selections dict
         for key,pos in sorted(self.selection_order.iteritems(), key=lambda (k,v): (v,k)):
             selected_text = self.selections[key]
 
             if self.correctness[key][selected_text] == 'True':
-                default_feedback = '<p class="correct"><strong>(' + str(pos) + ') ' + _('Correct') + '</strong></p>'
+                default_feedback = '<p class="correct"><strong>(' + str(pos) + ') ' + i18n_('Correct') + '</strong></p>'
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="correct"><strong>(' + str(pos) + ') ' + _('Correct') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<p class="correct"><strong>(' + str(pos) + ') ' + i18n_('Correct') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -225,10 +225,10 @@ class InlineDropdownXBlock(XBlock):
                 self.student_correctness[key] = 'True'
                 correct_count += 1
             else:
-                default_feedback = '<p class="incorrect"><strong>(' + str(pos) + ') ' + _('Incorrect') + '</strong></p>'
+                default_feedback = '<p class="incorrect"><strong>(' + str(pos) + ') ' + i18n_('Incorrect') + '</strong></p>'
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="incorrect"><strong>(' + str(pos) + ') ' + _('Incorrect') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<p class="incorrect"><strong>(' + str(pos) + ') ' + i18n_('Incorrect') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -331,11 +331,11 @@ class InlineDropdownXBlock(XBlock):
         decorated_hints = list()
 
         if len(raw_hints) == 1:
-            hint = _('Hint') + ': ' + etree.tostring(raw_hints[0], encoding='unicode')
+            hint = i18n_(_('Hint')) + ': ' + etree.tostring(raw_hints[0], encoding='unicode')
             decorated_hints.append(hint)
         else:
             for i in range(len(raw_hints)):
-                hint = _('Hint') + ' ({number} / {total}): {hint}'.format(
+                hint = i18n_(_('Hint')) + ' ({number} / {total}): {hint}'.format(
                     number=i + 1,
                     total=len(raw_hints),
                     hint=etree.tostring(raw_hints[i], encoding='unicode'))
@@ -429,9 +429,10 @@ class InlineDropdownXBlock(XBlock):
         Returns a statement of progress for the XBlock, which depends
         on the user's current score
         """
+        i18n_ = self.runtime.service(self, "i18n").ungettext
         result = ''
         if self.score == 0.0:
-            result = ungettext(
+            result = i18n_(
                 '{weight} point possible',
                 '{weight} points possible',
                 self.weight,
@@ -440,7 +441,7 @@ class InlineDropdownXBlock(XBlock):
             )
         else:
             score_string = '{0:g}'.format(self.score)
-            result = ungettext(
+            result = i18n_(
                 score_string + '/' + "{weight} point",
                 score_string + '/' + "{weight} points",
                 self.weight,
