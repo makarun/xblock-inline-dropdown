@@ -1,6 +1,6 @@
 /* Javascript for Inline Dropdown XBlock. */
 function InlineDropdownXBlockInitView(runtime, element) {
-    
+
     var handlerUrl = runtime.handlerUrl(element, 'student_submit');
     var resetUrl = runtime.handlerUrl(element, 'student_reset');
     var hintUrl = runtime.handlerUrl(element, 'send_hints');
@@ -9,7 +9,7 @@ function InlineDropdownXBlockInitView(runtime, element) {
 	var publishUrl = runtime.handlerUrl(element, 'publish_event');
 
 	var $element = $(element);
-	
+
     var check_button = $element.find('.check_button');
     var hint_button = $element.find('hint_button');
     var reset_button = $element.find('.reset_button');
@@ -19,15 +19,15 @@ function InlineDropdownXBlockInitView(runtime, element) {
     var feedback_div = $element.find('.feedback');
     var hint_div = $element.find('.hint');
     var hint_button_holder = $element.find('.hint_button_holder');
-        
+
     var hint;
     var hints;
     var hint_counter = 0;
-    
+
     var prompt = question_prompt.html();;
-    
+
     var xblock_id = '';
-    	
+
     $.ajax({
         type: 'POST',
         url: hintUrl,
@@ -49,9 +49,9 @@ function InlineDropdownXBlockInitView(runtime, element) {
           data: JSON.stringify(data)
       });
     }
-    
+
     function pre_submit() {
-        problem_progress.text('(Loading...)');
+        problem_progress.text(inline_dropdowni18n.gettext('(Loading...)'));
         if (prompt == '') {
         	prompt = question_prompt.html();
         }
@@ -61,31 +61,31 @@ function InlineDropdownXBlockInitView(runtime, element) {
         problem_progress.text('(' + result.problem_progress + ')');
 		show_feedback(result.feedback);
         reset_hint();
-        
+
         // reset the prompt to the original value to remove previous decorations
         question_prompt.html(prompt);
         // restore select values
         restore_selections(result.submissions);
 		// add decorations to indicate correctness
         add_decorations(result.correctness, result.selection_order);
-        
+
 	}
-	
+
 	function restore_selections(selections) {
-        $("select").each(function() { 
+        $("select").each(function() {
         	if (this.getAttribute('xblock_id') == xblock_id) {
         		// reset the select value to what the student submitted
         		this.value = selections[this.getAttribute('input')];
         	}
-        });        
+        });
 	}
-	
+
 	function add_decorations(correctness, selection_order) {
-        $("select").each(function() { 
+        $("select").each(function() {
         	if (this.getAttribute('xblock_id') == xblock_id) {
-        		
+
         		var decoration_number = selection_order[this.getAttribute('input')];
-        		        		
+
         		// add new decoration to the select
         		if (correctness[this.getAttribute('input')] == 'True') {
 	        		$('<span class="inline_dropdown feedback_number_correct">(' + decoration_number + ')</span>').insertAfter(this);
@@ -95,9 +95,9 @@ function InlineDropdownXBlockInitView(runtime, element) {
 	        		$('<span class="fa fa-times status incorrect"/>').insertAfter(this);
         		}
         	}
-        });        
+        });
 	}
-	
+
 	function post_reset(result) {
         problem_progress.text('(' + result.problem_progress + ')');
         reset_prompt();
@@ -122,7 +122,7 @@ function InlineDropdownXBlockInitView(runtime, element) {
         	success: restore_state
     	});
 	}
-	    
+
 	function restore_state(result) {
 		if (result.completed == true) {
         	restore_selections(result.selections);
@@ -130,7 +130,7 @@ function InlineDropdownXBlockInitView(runtime, element) {
         	show_feedback(result.current_feedback);
         }
 	}
-	    
+
     function reset_prompt() {
         // reset the prompt to the original value to remove previous decorations
         question_prompt.html(prompt);
@@ -165,19 +165,19 @@ function InlineDropdownXBlockInitView(runtime, element) {
 		feedback_div.html(feedback);
 		feedback_div.css('display','block');
     }
-    
+
     $('.check_button', element).click(function(eventObject) {
         pre_submit();
         var selections = {};
         var selection_order = {};
         var complete = true;
         var counter = 1;
-        $("select").each(function() { 
+        $("select").each(function() {
         	if (this.getAttribute('xblock_id') == xblock_id) {
         		if (this.selectedIndex == 0) {
     	    		complete = false;
-    	    		show_feedback('<p class="incorrect">You haven\'t completed the question.</p>');
-	        	} 
+    	    		show_feedback(`<p class="incorrect">${inline_dropdowni18n.gettext('You haven\'t completed the question.')}</p>`);
+	        	}
         		selections[this.getAttribute('input')] = this[this.selectedIndex].text;
         		selection_order[this.getAttribute('input')] = counter;
         		counter++;
@@ -206,11 +206,11 @@ function InlineDropdownXBlockInitView(runtime, element) {
             success: post_reset
         });
 	});
-	
+
     $('.hint_button', element).click(function(eventObject) {
         show_hint();
 	});
-		
+
 }
 
 

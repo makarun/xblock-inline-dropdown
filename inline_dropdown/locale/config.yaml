@@ -13,3 +13,4 @@ dummy_locales:
 ignore_dirs:
     - '*/css'
     - 'public/js/translations'
+    - 'inline_dropdown/static/js/translations'

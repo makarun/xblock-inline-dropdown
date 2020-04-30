@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 16:29+0200\n"
+"POT-Creation-Date: 2020-04-30 00:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,29 +16,29 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: inline_dropdown.py:35 static/html/inline_dropdown_edit.html:8
+#: inline_dropdown.py:37 static/html/inline_dropdown_edit.html:8
 msgid "Display Name"
 msgstr ""
 
-#: inline_dropdown.py:36
+#: inline_dropdown.py:38
 msgid "Inline Dropdown"
 msgstr ""
 
-#: inline_dropdown.py:38 static/html/inline_dropdown_edit.html:11
+#: inline_dropdown.py:40 static/html/inline_dropdown_edit.html:11
 msgid "This name appears in the horizontal navigation at the top of the page"
 msgstr ""
 
-#: inline_dropdown.py:44
+#: inline_dropdown.py:46
 msgid "Hints for the question"
 msgstr ""
 
-#: inline_dropdown.py:48
+#: inline_dropdown.py:50
 msgid "Default question content "
 msgstr ""
 
-#: inline_dropdown.py:50
+#: inline_dropdown.py:52
 msgid ""
 "\n"
 "            <inline_dropdown schema_version='1'>\n"
@@ -77,69 +77,68 @@ msgid ""
 "        "
 msgstr ""
 
-#: inline_dropdown.py:82
+#: inline_dropdown.py:84
 msgid "Correctness of input values"
 msgstr ""
 
-#: inline_dropdown.py:88
+#: inline_dropdown.py:90
 msgid "Order of selections in body"
 msgstr ""
 
-#: inline_dropdown.py:94
+#: inline_dropdown.py:96
 msgid "Saved student input values"
 msgstr ""
 
-#: inline_dropdown.py:100
+#: inline_dropdown.py:102
 msgid "Saved student correctness values"
 msgstr ""
 
-#: inline_dropdown.py:106
+#: inline_dropdown.py:108
 msgid "Feedback for input values"
 msgstr ""
 
-#: inline_dropdown.py:112
+#: inline_dropdown.py:114
 msgid "Current feedback state"
 msgstr ""
 
-#: inline_dropdown.py:118
+#: inline_dropdown.py:120
 msgid "Indicates whether the learner has completed the problem at least once"
 msgstr ""
 
-#: inline_dropdown.py:124 static/html/inline_dropdown_edit.html:16
+#: inline_dropdown.py:126 static/html/inline_dropdown_edit.html:16
 msgid "Weight"
 msgstr ""
 
-#: inline_dropdown.py:126 static/html/inline_dropdown_edit.html:19
+#: inline_dropdown.py:128 static/html/inline_dropdown_edit.html:19
 msgid "This assigns an integer value representing the weight of this problem"
 msgstr ""
 
-#: inline_dropdown.py:202 inline_dropdown.py:205
+#: inline_dropdown.py:215 inline_dropdown.py:218
 msgid "Correct"
 msgstr ""
 
-#: inline_dropdown.py:213 inline_dropdown.py:216
+#: inline_dropdown.py:226 inline_dropdown.py:229
 msgid "Incorrect"
 msgstr ""
 
-#: inline_dropdown.py:318 inline_dropdown.py:322
+#: inline_dropdown.py:331 inline_dropdown.py:335
+#: static/html/inline_dropdown_view.html:19
 msgid "Hint"
 msgstr ""
 
-#: inline_dropdown.py:419
+#: inline_dropdown.py:432
 #, python-brace-format
 msgid "{weight} point possible"
-msgid_plural "{weight} points possible"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
-#: inline_dropdown.py:428
+#: inline_dropdown.py:441
 #, python-brace-format
 msgid "/{weight} point"
 msgid_plural "/{weight} points"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inline_dropdown.py:495
+#: inline_dropdown.py:517
 msgid "Dummy"
 msgstr ""
 
@@ -157,4 +156,20 @@ msgstr ""
 
 #: static/html/inline_dropdown_edit.html:40
 msgid "Cancel"
+msgstr ""
+
+#: static/html/inline_dropdown_view.html:13
+msgid "Check"
+msgstr ""
+
+#: static/html/inline_dropdown_view.html:25
+msgid "Reset"
+msgstr ""
+
+#: static/js/inline_dropdown_view.js:54
+msgid "(Loading...)"
+msgstr ""
+
+#: static/js/inline_dropdown_view.js:179
+msgid "You haven't completed the question."
 msgstr ""

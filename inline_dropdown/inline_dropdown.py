@@ -3,6 +3,7 @@
 import pkg_resources
 from django.template import Context, Template
 from django.utils.translation import ungettext
+from django.utils import translation
 from django.utils.translation import ugettext_lazy
 
 from xblock.core import XBlock
@@ -160,6 +161,7 @@ class InlineDropdownXBlock(XBlock):
 
         frag.add_css(loader.load_unicode('static/css/inline_dropdown.css'))
         frag.add_javascript(loader.load_unicode('static/js/inline_dropdown_view.js'))
+        frag.add_javascript(self.get_translation_content())
         frag.initialize_js('InlineDropdownXBlockInitView')
         return frag
 
@@ -428,7 +430,7 @@ class InlineDropdownXBlock(XBlock):
         """
         result = ''
         if self.score == 0.0:
-            result = _(
+            result = ungettext(
                 '{weight} point possible',
                 '{weight} points possible',
                 self.weight,
@@ -465,6 +467,15 @@ class InlineDropdownXBlock(XBlock):
                 'max_grade': self.weight,
             }
         )
+
+    def get_translation_content(self):
+        try:
+            return self.resource_string('static/js/translations/{lang}/text.js'.format(
+                lang=translation.get_language(),
+            ))
+        except IOError:
+            return self.resource_string('static/js/translations/en/text.js')
+
 
     @staticmethod
     def workbench_scenarios():
@@ -506,3 +517,5 @@ class InlineDropdownXBlock(XBlock):
         Dummy method to generate initial i18n
         """
         return translation.gettext_noop('Dummy')
+
+

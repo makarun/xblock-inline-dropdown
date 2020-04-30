@@ -19,7 +19,7 @@ INSTALLED_APPS = (
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -44,7 +44,11 @@ LANGUAGES = [
 
 STATICI18N_DOMAIN = 'text'
 STATICI18N_PACKAGES = (
-    'inline_dropdown.translations',
+    'inline_dropdown',
 )
-STATICI18N_ROOT = 'inline_dropdown/public/js'
+STATICI18N_ROOT = 'inline_dropdown/static/js'
 STATICI18N_OUTPUT_DIR = 'translations'
+
+STATICI18N_NAMESPACE = 'inline_dropdowni18n'
+
+STATICI18N_OUTPUT_DIR = 'static/js/translations'

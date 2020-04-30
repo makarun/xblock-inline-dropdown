@@ -16,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: inline_dropdown.py:35 static/html/inline_dropdown_edit.html:8
 msgid "Display Name"
@@ -144,7 +145,7 @@ msgstr "Waga"
 
 #: inline_dropdown.py:126 static/html/inline_dropdown_edit.html:19
 msgid "This assigns an integer value representing the weight of this problem"
-msgstr ""
+msgstr "Przypisuje liczbę całkowitą reprezentującą wagę tego problemu"
 
 #: inline_dropdown.py:202 inline_dropdown.py:205
 msgid "Correct"
@@ -157,6 +158,20 @@ msgstr "Źle"
 #: inline_dropdown.py:318 inline_dropdown.py:322
 msgid "Hint"
 msgstr "Podpowiedź"
+
+#: inline_dropdown.py:432
+#, python-brace-format
+msgid "{weight} point possible"
+msgstr "{weight} możliwy punkt"
+
+#: inline_dropdown.py:441
+#, python-brace-format
+msgid "/{weight} point"
+msgid_plural "/{weight} points"
+msgstr[0] "/{weight} punkt"
+msgstr[1] "/{weight} punkty"
+msgstr[2] "/{weight} punkty"
+msgstr[3] "/{weight} punkty"
 
 #: inline_dropdown.py:495
 msgid "Dummy"
@@ -177,3 +192,15 @@ msgstr "Zapisz"
 #: static/html/inline_dropdown_edit.html:40
 msgid "Cancel"
 msgstr "Anuluj"
+
+#: static/html/inline_dropdown_view.html:13
+msgid "Check"
+msgstr "Sprawdź"
+
+#: static/js/inline_dropdown_view.js:54
+msgid "(Loading...)"
+msgstr "(Wczytywanie...)"
+
+#: static/js/inline_dropdown_view.js:179
+msgid "You haven't completed the question."
+msgstr "Nie wypełniłeś pytania."

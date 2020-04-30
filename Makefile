@@ -8,7 +8,7 @@ EXTRACT_DIR := $(PACKAGE_NAME)/locale/en/LC_MESSAGES
 EXTRACTED_DJANGO := $(EXTRACT_DIR)/django-partial.po
 EXTRACTED_DJANGOJS := $(EXTRACT_DIR)/djangojs-partial.po
 EXTRACTED_TEXT := $(EXTRACT_DIR)/text.po
-JS_TARGET := public/js/translations
+JS_TARGET := inline_dropdown/static/js/translations
 TRANSLATIONS_DIR := $(PACKAGE_NAME)/translations
 
 help:
