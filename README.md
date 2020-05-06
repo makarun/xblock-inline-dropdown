@@ -135,7 +135,7 @@ These catalogs can be created by running::
     $ make extract_translations
 
 The previous command will create the necessary ``.po`` files under
-``xblock-inline-dropdow/inline_dropdown/locale/en/LC_MESSAGES/text.po``.
+``xblock-inline-dropdown/inline_dropdown/locale/en/LC_MESSAGES/text.po``.
 The ``text.po`` file is created from the ``django-partial.po`` file created by
 ``django-admin makemessages`` (`makemessages documentation <https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#message-files>`_),
 this is why you will not see a ``django-partial.po`` file.
