@@ -80,7 +80,7 @@ msgstr ""
 "            <inline_dropdown schema_version='1'>\n"
 "                <body>\n"
 "                    <p>Owoce powstają z kwiatów drzew, krzewów i roślin ogrodowych oraz zawierają nasiona. "
-". W związku z tym, <input_ref input=\"i1\"/> jest owocem a "
+"W związku z tym, <input_ref input=\"i1\"/> jest owocem, a "
 "<input_ref input=\"i2\"/> jest warzywem.</p>\n"
 "                </body>\n"
 "                <optionresponse>\n"
@@ -199,7 +199,7 @@ msgstr "Anuluj"
 
 #: static/html/inline_dropdown_view.html:13
 msgid "Check"
-msgstr "Sprawdź"
+msgstr "Prześlij"
 
 #: static/js/inline_dropdown_view.js:54
 msgid "(Loading...)"

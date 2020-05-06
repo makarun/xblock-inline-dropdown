@@ -150,7 +150,7 @@ class InlineDropdownXBlock(XBlock):
         ctx = {
             'display_name': self.display_name,
             'problem_progress': self._get_problem_progress(),
-            'prompt': self._get_body(i18n_(self.question_string)),
+            'prompt': self._get_body(self.question_string),
             'attributes': attributes
         }
 
@@ -488,6 +488,7 @@ class InlineDropdownXBlock(XBlock):
             i18n_ = self.runtime.service(self, "i18n").ugettext
             #     self.display_name = _(self.display_name)
             self.fields['display_name']._default = i18n_(self.fields['display_name']._default)
+            self.fields['question_string']._default = i18n_(self.fields['question_string']._default)
             self.skip_flag = True
 
     @staticmethod
