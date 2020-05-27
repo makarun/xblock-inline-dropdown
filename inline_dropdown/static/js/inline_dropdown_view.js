@@ -10,11 +10,11 @@ function InlineDropdownXBlockInitView(runtime, element) {
 
 	var $element = $(element);
 
-    var check_button = $element.find('.check_button');
+    var submit = $element.find('.submit');
     var hint_button = $element.find('hint_button');
     var reset_button = $element.find('.reset_button');
 
-    var problem_progress = $element.find('.problem_progress');
+    var problem_progress = $element.find('.problem-progress');
     var question_prompt = $element.find('.question_prompt');
     var feedback_div = $element.find('.feedback');
     var hint_div = $element.find('.hint');
@@ -58,7 +58,7 @@ function InlineDropdownXBlockInitView(runtime, element) {
     }
 
 	function post_submit(result) {
-        problem_progress.text('(' + result.problem_progress + ')');
+        problem_progress.text(result.problem_progress);
 		show_feedback(result.feedback);
         reset_hint();
 
@@ -89,10 +89,10 @@ function InlineDropdownXBlockInitView(runtime, element) {
         		// add new decoration to the select
         		if (correctness[this.getAttribute('input')] == 'True') {
 	        		$('<span class="inline_dropdown feedback_number_correct">(' + decoration_number + ')</span>').insertAfter(this);
-	        		$('<span class="fa fa-check status correct"/>').insertAfter(this);
+	        		$('<span class="fa fa-check status correct mx-1"/>').insertAfter(this);
         		} else {
 	        		$('<span class="inline_dropdown feedback_number_incorrect">(' + decoration_number + ')</span>').insertAfter(this);
-	        		$('<span class="fa fa-times status incorrect"/>').insertAfter(this);
+	        		$('<span class="fa fa-times status incorrect mx-1"/>').insertAfter(this);
         		}
         	}
         });
@@ -166,7 +166,7 @@ function InlineDropdownXBlockInitView(runtime, element) {
 		feedback_div.css('display','block');
     }
 
-    $('.check_button', element).click(function(eventObject) {
+    $('.submit', element).click(function(eventObject) {
         pre_submit();
         var selections = {};
         var selection_order = {};
