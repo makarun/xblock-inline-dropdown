@@ -99,7 +99,7 @@ function InlineDropdownXBlockInitView(runtime, element) {
 	}
 
 	function post_reset(result) {
-        problem_progress.text('(' + result.problem_progress + ')');
+        problem_progress.text(result.problem_progress);
         reset_prompt();
         reset_hint();
         reset_feedback();
