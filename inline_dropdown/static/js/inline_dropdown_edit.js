@@ -171,7 +171,7 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
             return currentContent.replace(wordToChange, regexMatches[inputRefIndex]);
           });
         } else {
-          const feedbackMessage = inline_dropdowni18n.gettext('A text which will appear after giving a correct answer');
+          const feedbackMessage = inline_dropdowni18n.gettext('A text which will appear after giving a correct response');
           const xmlTemplate = inline_dropdowni18n.gettext(`<optionresponse><optioninput id="${elementIndex}"><option correct="True">${regexMatches[inputRefIndex]}<optionhint>${feedbackMessage}</optionhint></option></optioninput></optionresponse>`);
           if (self.$xml.find('optionresponse').length) {
             self.$xml.find('optionresponse').last().after(xmlTemplate);
@@ -267,7 +267,7 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
       const elementId = $(this).parent().parent().parent()
         .attr('option_id');
       const tempStringOne = inline_dropdowni18n.gettext('Incorrect response');
-      const tempStringTwo = inline_dropdowni18n.gettext('A text which will appear after giving a correct Incorrect answer');
+      const tempStringTwo = inline_dropdowni18n.gettext('A text which will appear after giving a incorrect response');
       const xmlTemporaryTemplate = inline_dropdowni18n.gettext(`<option correct="False">${tempStringOne}<optionhint>${tempStringTwo}</optionhint></option>`);
       self.$xml.find(`#${elementId}`).append(xmlTemporaryTemplate);
       self.updateXmlEditor(self.$xml.get(0));

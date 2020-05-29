@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 00:16+0000\n"
+"POT-Creation-Date: 2020-05-29 11:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,27 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: inline_dropdown.py:37 static/html/inline_dropdown_edit.html:8
+#: inline_dropdown.py:38 static/html/inline_dropdown_edit.html:7
 msgid "Display Name"
 msgstr ""
 
-#: inline_dropdown.py:38
+#: inline_dropdown.py:39
 msgid "Inline Dropdown"
 msgstr ""
 
-#: inline_dropdown.py:40 static/html/inline_dropdown_edit.html:11
+#: inline_dropdown.py:41 static/html/inline_dropdown_edit.html:10
 msgid "This name appears in the horizontal navigation at the top of the page"
 msgstr ""
 
-#: inline_dropdown.py:46
+#: inline_dropdown.py:47
 msgid "Hints for the question"
 msgstr ""
 
-#: inline_dropdown.py:50
+#: inline_dropdown.py:51
 msgid "Default question content "
 msgstr ""
 
-#: inline_dropdown.py:52
+#: inline_dropdown.py:53
 msgid ""
 "\n"
 "            <inline_dropdown schema_version='1'>\n"
@@ -59,13 +59,13 @@ msgid ""
 "                </optionresponse>\n"
 "                <optionresponse>\n"
 "                    <optioninput id=\"i2\">\n"
+"                        <option correct=\"True\">onion<optionhint>The onion "
+"is the bulb of the onion plant and contains no seeds and is therefore a "
+"vegetable.</optionhint></option>\n"
 "                        <option correct=\"False\">cucumber<optionhint>Many "
 "people mistakenly think a cucumber is a vegetable. However, because a "
 "cucumber is the fertilized ovary of a cucumber plant and contains seeds, it "
 "is a fruit.</optionhint></option>\n"
-"                        <option correct=\"True\">onion<optionhint>The onion "
-"is the bulb of the onion plant and contains no seeds and is therefore a "
-"vegetable.</optionhint></option>\n"
 "                    </optioninput>\n"
 "                </optionresponse>\n"
 "                <demandhint>\n"
@@ -77,86 +77,116 @@ msgid ""
 "        "
 msgstr ""
 
-#: inline_dropdown.py:84
+#: inline_dropdown.py:85
 msgid "Correctness of input values"
 msgstr ""
 
-#: inline_dropdown.py:90
+#: inline_dropdown.py:91
 msgid "Order of selections in body"
 msgstr ""
 
-#: inline_dropdown.py:96
+#: inline_dropdown.py:97
 msgid "Saved student input values"
 msgstr ""
 
-#: inline_dropdown.py:102
+#: inline_dropdown.py:103
 msgid "Saved student correctness values"
 msgstr ""
 
-#: inline_dropdown.py:108
+#: inline_dropdown.py:109
 msgid "Feedback for input values"
 msgstr ""
 
-#: inline_dropdown.py:114
+#: inline_dropdown.py:115
 msgid "Current feedback state"
 msgstr ""
 
-#: inline_dropdown.py:120
+#: inline_dropdown.py:121
 msgid "Indicates whether the learner has completed the problem at least once"
 msgstr ""
 
-#: inline_dropdown.py:126 static/html/inline_dropdown_edit.html:16
+#: inline_dropdown.py:127 static/html/inline_dropdown_edit.html:14
 msgid "Weight"
 msgstr ""
 
-#: inline_dropdown.py:128 static/html/inline_dropdown_edit.html:19
+#: inline_dropdown.py:129 static/html/inline_dropdown_edit.html:17
 msgid "This assigns an integer value representing the weight of this problem"
 msgstr ""
 
-#: inline_dropdown.py:215 inline_dropdown.py:218
+#: inline_dropdown.py:221 inline_dropdown.py:224
 msgid "Correct"
 msgstr ""
 
-#: inline_dropdown.py:226 inline_dropdown.py:229
+#: inline_dropdown.py:232 inline_dropdown.py:235
 msgid "Incorrect"
 msgstr ""
 
-#: inline_dropdown.py:331 inline_dropdown.py:335
+#: inline_dropdown.py:338 inline_dropdown.py:342
 #: static/html/inline_dropdown_view.html:19
 msgid "Hint"
 msgstr ""
 
-#: inline_dropdown.py:435
+#: inline_dropdown.py:440
 #, python-brace-format
 msgid "{weight} point possible"
 msgid_plural "{weight} points possible"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inline_dropdown.py:444
+#: inline_dropdown.py:449
 #, python-brace-format
 msgid "/{weight} point"
 msgid_plural "/{weight} points"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inline_dropdown.py:517
+#: inline_dropdown.py:531
 msgid "Dummy"
 msgstr ""
 
 #: static/html/inline_dropdown_edit.html:24
-msgid "Definition"
+msgid "Problem"
 msgstr ""
 
 #: static/html/inline_dropdown_edit.html:25
+msgid "Switch to XML editor view"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:27
+msgid ""
+"Enter a problem here. In square brackets [] enter the words, which will be "
+"changed into gaps."
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:36
+msgid "Beneath there is a list of hints. You can modify, add and delete them."
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:39
+msgid "Hints"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:44
+msgid "Add a hint"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:54
+msgid "Definition"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:55
+msgid "Switch to Visual editor view"
+msgstr ""
+
+#: static/html/inline_dropdown_edit.html:57
 msgid "The XML definition for the problem"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:37
+#: static/html/inline_dropdown_edit.html:72
 msgid "Save"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:40
+#: static/html/inline_dropdown_edit.html:75
 msgid "Cancel"
 msgstr ""
 
@@ -168,10 +198,49 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
+#: static/js/inline_dropdown_edit.js:174
+msgid "A text which will appear after giving a correct response"
+msgstr ""
+
+#: static/js/inline_dropdown_edit.js:269
+msgid "Incorrect response"
+msgstr ""
+
+#: static/js/inline_dropdown_edit.js:270
+msgid "A text which will appear after giving a incorrect response"
+msgstr ""
+
 #: static/js/inline_dropdown_view.js:54
 msgid "(Loading...)"
 msgstr ""
 
 #: static/js/inline_dropdown_view.js:179
 msgid "You haven't completed the question."
+msgstr ""
+
+#: static/js/template_edit.js:2
+msgid ""
+"Beneath you have a list of words extracted from the square brackets []. You "
+"can add feedback message which will appear after giving the correct response. "
+"You should also add Incorrect responses."
+msgstr ""
+
+#: static/js/template_edit.js:3
+msgid "Feedback"
+msgstr ""
+
+#: static/js/template_edit.js:4
+msgid "Add incorrect option"
+msgstr ""
+
+#: static/js/template_edit.js:5
+msgid "Incorrect options"
+msgstr ""
+
+#: static/js/template_edit.js:6
+msgid "Correct option: "
+msgstr ""
+
+#: static/js/template_edit.js:30
+msgid "Delete"
 msgstr ""

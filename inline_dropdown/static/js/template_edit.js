@@ -1,9 +1,9 @@
 
-const problemTip = embedded_answersi18n.gettext('Beneath you have a list of words extracted from the square brackets []. You can add feedback message which will appear after giving the correct answer. You may also add Incorrect responses which will also be accepted (e.g. café cafe)');
-const feedbackMessage = embedded_answersi18n.gettext('Feedback');
-const addIncorrectResponseButtonName = embedded_answersi18n.gettext('Add incorrect option');
-const IncorrectResponsesLabel = embedded_answersi18n.gettext('Incorrect options');
-const taggedWordLabel = embedded_answersi18n.gettext('Correct option: ');
+const problemTip = inline_dropdowni18n.gettext('Beneath you have a list of words extracted from the square brackets []. You can add feedback message which will appear after giving the correct response. You should also add Incorrect responses.');
+const feedbackMessage = inline_dropdowni18n.gettext('Feedback');
+const addIncorrectResponseButtonName = inline_dropdowni18n.gettext('Add incorrect option');
+const IncorrectResponsesLabel = inline_dropdowni18n.gettext('Incorrect options');
+const taggedWordLabel = inline_dropdowni18n.gettext('Correct option: ');
 var questionBodyTemplate = `
 <div>
     <br>
@@ -27,7 +27,7 @@ var questionBodyTemplate = `
     </div>
 </div>`;
 
-const deleteButtonLabel = embedded_answersi18n.gettext('Delete');
+const deleteButtonLabel = inline_dropdowni18n.gettext('Delete');
 var questionIncorrectTemplate = `
 <div class="inline-dropdown-question-bottom-secondary">
     <input class="label setting-label input_question_word" type="text" value="">
