@@ -183,7 +183,9 @@ class InlineDropdownXBlock(XBlock):
             context = ctx,
             i18n_service=self.runtime.service(self, "i18n"),
         ))
-
+        frag.add_css(loader.load_unicode('static/css/inline_dropdown_edit.css'))
+        # frag.add_javascript(self.get_translation_content())
+        frag.add_javascript(loader.load_unicode('static/js/template_edit.js'))
         frag.add_javascript(loader.load_unicode('static/js/inline_dropdown_edit.js'))
         frag.initialize_js('InlineDropdownXBlockInitEdit')
         return frag
@@ -446,7 +448,7 @@ class InlineDropdownXBlock(XBlock):
             result = score_string + i18n_(
                 "/{weight} point",
                 "/{weight} points",
-                int(score_string),
+                self.weight,
             ).format(
                 weight=self.weight
             )

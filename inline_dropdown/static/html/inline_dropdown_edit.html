@@ -2,45 +2,79 @@
 
 <div class="wrapper-comp-settings editor-with-buttons is-active" id="settings-tab">
     <ul class="list-input settings-list">
-        
-         <li class="field comp-setting-entry is-set">
+        <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
                 <label class="label setting-label" for="inline_dropdown_edit_display_name">{% trans "Display Name" %}</label>
                 <input class="input setting-input" id="inline_dropdown_edit_display_name" value="{{ display_name }}" type="text">
             </div>
             <span class="tip setting-help">{% trans "This name appears in the horizontal navigation at the top of the page" %}</span>
         </li>
-
-        <li class="field comp-setting-entry is-set">
-          <div class="wrapper-comp-setting">
-              <label class="label setting-label" for="inline_dropdown_edit_weight">{% trans "Weight" %}</label>
-              <input class="input setting-input" id="inline_dropdown_edit_weight" step="1" min="1" value="{{ weight }}" type="number">
-          </div>
-          <span class="tip setting-help">{% trans "This assigns an integer value representing the weight of this problem" %}</span>
-        </li>
-        
-        <li class="field comp-setting-entry is-set">
-          <div class="wrapper-comp-setting">
-            <label class="label setting-label" for="edit_data">{% trans "Definition" %}</label>
-            <span class="tip setting-help">{% trans "The XML definition for the problem" %}</span>
-            <div class='codemirror-editor-wrapper'>
-              <textarea class="block-xml-editor edit-data">{{ xml_data }}</textarea>
+        <li class="field comp-setting-entry inline-dropdown-settings_end">
+            <div class="wrapper-comp-setting">
+                  <label class="label setting-label" for="inline_dropdown_edit_weight">{% trans "Weight" %}</label>
+                  <input class="input setting-input" id="inline_dropdown_edit_weight" step="1" min="1" value="{{ weight }}" type="number">
             </div>
-          </div>
-      </li>
+           <span class="tip setting-help">{% trans "This assigns an integer value representing the weight of this problem" %}</span>
+        </li>
+        <div class="inline-dropdown-visual">
+            <li class="field comp-setting-entry">
+                <div class="inline-dropdown-visual-question">
+                    <div class="inline-dropdown-visual-header">
+                        <div>
+							<label class="label setting-label" for="inline_dropdown_edit_weight">{% trans "Problem" %}</label>
+							<button class="inline-dropdown-settings-toggle-xml">{% trans "Switch to XML editor view" %}</button>
+                        </div>
+                        <span class="tip setting-help">{% trans "Enter a problem here. In square brackets [] enter the words, which will be changed into gaps." %}</span>
+                    </div>
+                    <div class="wrapper-comp-setting">
+                        <textarea class="inline-dropdown-question-textarea" id="question-textarea"></textarea>
+                    </div>
+                </div>
+				<div id="problem-container">
+				</div>
+                 <br>
+                <span class="tip setting-help">{% trans "Beneath there is a list of hints. You can modify, add and delete them." %}</span>
+                <div class="inline-dropdown-demandhints">
+                    <div class="inline-dropdown-demandhints-header">
+                        <label for="inline_dropdown_edit_weight">{% trans "Hints" %}</label>
+                    </div>
+                    <div id="demandhint-container">
+                    </div>
+                    <div class="inline-dropdown-demandhints-button-container">
+	                        <button class="button inline-dropdown-button-add-demandhint">{% trans "Add a hint" %}</button>
+	                </div>
+				</div>
+	        </li>
+	    </div>
+		<div class="inline-dropdown-xml">
+            <li class="field comp-setting-entry">
+                <div class="inline-dropdown-xml-container">
+                    <div class="inline-dropdown-xml-header">
+                        <div>
+							<label class="label setting-label" for="inline_dropdown_edit_weight">{% trans "Definition" %}</label>
+							<button class="inline-dropdown-settings-toggle-visual">{% trans "Switch to Visual editor view" %}</button>
+                        </div>
+                        <span class="tip setting-help">{% trans "The XML definition for the problem" %}</span>
+                    </div>
 
-    </ul>
-    
-    <div class="xblock-actions">
-        <ul>
-            <li class="action-item">
-                <a href="#" class="button action-primary action-save">{% trans "Save" %}</a>
+                    <div class="inline-dropdown-xml-body">
+                        <div class='codemirror-editor-wrapper'>
+                            <textarea class="block-xml-editor edit-data">{{ xml_data }}</textarea>
+                        </div>
+                    </div>
+                </div>
             </li>
-            <li class="action-item">
-                <a href="#" class="button action-cancel">{% trans "Cancel" %}</a>
-            </li>
-        </ul>
-    </div>
+        </div>
+	</ul>
+	<div class=" xblock-actions">
+		<ul>
+			<li class="action-item">
+				<a href="#" class="button action-primary action-save">{% trans "Save" %}</a>
+			</li>
+			<li class="action-item">
+				<a href="#" class="button action-cancel">{% trans "Cancel" %}</a>
+			</li>
+		</ul>
+	</div>
 </div>
-
 
