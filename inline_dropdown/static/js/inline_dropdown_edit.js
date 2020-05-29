@@ -268,7 +268,7 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
         .attr('option_id');
       const tempStringOne = inline_dropdowni18n.gettext('Alternative reponse');
       const tempStringTwo = inline_dropdowni18n.gettext('A text which will appear after giving a correct alternative answer');
-      const xmlTemporaryTemplate = inline_dropdowni18n.gettext(`<option correct="True">${tempStringOne}<optionhint>${tempStringTwo}</optionhint></option>`);
+      const xmlTemporaryTemplate = inline_dropdowni18n.gettext(`<option correct="False">${tempStringOne}<optionhint>${tempStringTwo}</optionhint></option>`);
       self.$xml.find(`#${elementId}`).append(xmlTemporaryTemplate);
       self.updateXmlEditor(self.$xml.get(0));
     };
