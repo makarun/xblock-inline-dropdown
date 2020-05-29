@@ -1,35 +1,35 @@
 
-const problemTip = embedded_answersi18n.gettext('Beneath you have a list of words extracted from the square brackets []. You can add feedback message which will appear after giving the correct answer. You may also add alternative responses which will also be accepted (e.g. café cafe)');
+const problemTip = embedded_answersi18n.gettext('Beneath you have a list of words extracted from the square brackets []. You can add feedback message which will appear after giving the correct answer. You may also add Incorrect responses which will also be accepted (e.g. café cafe)');
 const feedbackMessage = embedded_answersi18n.gettext('Feedback');
-const addAlternativeResponseButtonName = embedded_answersi18n.gettext('Add incorrect option');
-const alternativeResponsesLabel = embedded_answersi18n.gettext('Incorrect options');
+const addIncorrectResponseButtonName = embedded_answersi18n.gettext('Add incorrect option');
+const IncorrectResponsesLabel = embedded_answersi18n.gettext('Incorrect options');
 const taggedWordLabel = embedded_answersi18n.gettext('Correct option: ');
 var questionBodyTemplate = `
 <div>
     <br>
     <span class="tip setting-help">${problemTip}</span>
-    <div class="inline-dropdown-question-alternatives">
-        <div class="inline-dropdown-question-alternatives-header">
+    <div class="inline-dropdown-question">
+        <div class="inline-dropdown-question-header">
             <label>${taggedWordLabel} <strong></strong></label>
         </div>
-        <div class="inline-dropdown-question-alternatives-bottom">
+        <div class="inline-dropdown-question-bottom">
             <label class="label setting-label">${feedbackMessage}</label>
             <input class="setting-input" type="text" value="">
         </div>
-        <div class="inline-dropdown-question-alternatives-header-secondary">
-            <label>${alternativeResponsesLabel}</label>
+        <div class="inline-dropdown-question-header-secondary">
+            <label>${IncorrectResponsesLabel}</label>
         </div>
-        <div id="alternatives-container">
+        <div id="question-container">
         </div>
-        <div class="inline-dropdown-question-alternatives-button-container">
-            <button class="button inline-dropdown-button-add-alternative">${addAlternativeResponseButtonName}</button>
+        <div class="inline-dropdown-question-button-container">
+            <button class="button inline-dropdown-button-add-incorrect">${addIncorrectResponseButtonName}</button>
         </div>
     </div>
 </div>`;
 
 const deleteButtonLabel = embedded_answersi18n.gettext('Delete');
-var questionAlternativeTemplate = `
-<div class="inline-dropdown-question-alternatives-bottom-secondary">
+var questionIncorrectTemplate = `
+<div class="inline-dropdown-question-bottom-secondary">
     <input class="label setting-label input_question_word" type="text" value="">
     <input class="setting-input input_hint" type="text" value="">
     <button type="button" class="inline-dropdown-button-delete">${deleteButtonLabel} <i class="fa fa-times" aria-hidden="true"></i></button>

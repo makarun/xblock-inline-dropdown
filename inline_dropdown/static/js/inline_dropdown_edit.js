@@ -32,9 +32,9 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
     };
 
     this.getTemplates = () => {
-      // this elements: questionBodyTemplate, questionAlternativeTemplate, demandHintTemplate are previously imported in inline_dropdown.py. there are assigns to this.variables
+      // this elements: questionBodyTemplate, questionIncorrectTemplate, demandHintTemplate are previously imported in inline_dropdown.py. there are assigns to this.variables
       this.questionBodyTemplate = questionBodyTemplate;
-      this.questionAlternativeTemplate = questionAlternativeTemplate;
+      this.questionIncorrectTemplate = questionIncorrectTemplate;
       this.demandHintTemplate = demandHintTemplate;
     };
 
@@ -44,11 +44,11 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
       this.xmlButton.click(this.xmlView);
       this.visualButton.click(this.visualView);
 
-      this.mainContainer.on('input', '.inline-dropdown-question-alternatives-bottom input', this.editMainFeedbackMessage);
-      this.mainContainer.on('input', '.inline-dropdown-question-alternatives-bottom-secondary .input_question_word', this.editAlternativeWord);
-      this.mainContainer.on('input', '.inline-dropdown-question-alternatives-bottom-secondary .input_hint', this.editAlternativeFeedbackMessage);
-      this.mainContainer.on('click', '.inline-dropdown-button-delete', this.deleteAlternative);
-      this.mainContainer.on('click', '.inline-dropdown-button-add-alternative', this.addAlternative);
+      this.mainContainer.on('input', '.inline-dropdown-question-bottom input', this.editMainFeedbackMessage);
+      this.mainContainer.on('input', '.inline-dropdown-question-bottom-secondary .input_question_word', this.editIncorrectWord);
+      this.mainContainer.on('input', '.inline-dropdown-question-bottom-secondary .input_hint', this.editIncorrectFeedbackMessage);
+      this.mainContainer.on('click', '.inline-dropdown-button-delete', this.deleteIncorrect);
+      this.mainContainer.on('click', '.inline-dropdown-button-add-incorrect', this.addIncorrect);
 
       //
       this.mainHintContainer.on('click', '.inline-dropdown-button-delete', this.deleteHint);
@@ -113,14 +113,14 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
         $(answerName[inputIndex]).each((answerNameIndex) => {
           if (answerNameIndex === 0) {
             $(inputReference).replaceWith(`[${answerName[inputIndex][answerNameIndex]}]`);
-            $(bodyContainer).find('.inline-dropdown-question-alternatives-header strong').text(answerName[inputIndex][answerNameIndex]);
-            $(bodyContainer).find('.inline-dropdown-question-alternatives-bottom input').val(feedbackMessage[inputIndex][answerNameIndex]);
+            $(bodyContainer).find('.inline-dropdown-question-header strong').text(answerName[inputIndex][answerNameIndex]);
+            $(bodyContainer).find('.inline-dropdown-question-bottom input').val(feedbackMessage[inputIndex][answerNameIndex]);
           } else {
-            const alternativeContainer = $.parseHTML($.trim(self.questionAlternativeTemplate));
-            $(alternativeContainer).attr('optioninput', `${inputIndex}`);
-            $(alternativeContainer).find('.input_question_word').val(answerName[inputIndex][answerNameIndex]);
-            $(alternativeContainer).find('.input_hint').val(feedbackMessage[inputIndex][answerNameIndex]);
-            $(bodyContainer).find('#alternatives-container').append(alternativeContainer);
+            const IncorrectContainer = $.parseHTML($.trim(self.questionIncorrectTemplate));
+            $(IncorrectContainer).attr('optioninput', `${inputIndex}`);
+            $(IncorrectContainer).find('.input_question_word').val(answerName[inputIndex][answerNameIndex]);
+            $(IncorrectContainer).find('.input_hint').val(feedbackMessage[inputIndex][answerNameIndex]);
+            $(bodyContainer).find('#question-container').append(IncorrectContainer);
           }
         });
         this.mainContainer.append(bodyContainer);
@@ -256,24 +256,24 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
       self.textareaToXML(($(this).val()));
     };
 
-    this.deleteAlternative = function ()  {
+    this.deleteIncorrect = function ()  {
       const elementIndex = $(this).parent().index();
       const optionInput = $(this).parent().attr('optioninput');
       self.$xml.find(`#${optionInput}`).children().eq(parseInt(elementIndex) + 1).remove();
       self.updateXmlEditor(self.$xml.get(0));
     };
 
-    this.addAlternative = function () {
+    this.addIncorrect = function () {
       const elementId = $(this).parent().parent().parent()
         .attr('option_id');
-      const tempStringOne = inline_dropdowni18n.gettext('Alternative reponse');
-      const tempStringTwo = inline_dropdowni18n.gettext('A text which will appear after giving a correct alternative answer');
+      const tempStringOne = inline_dropdowni18n.gettext('Incorrect response');
+      const tempStringTwo = inline_dropdowni18n.gettext('A text which will appear after giving a correct Incorrect answer');
       const xmlTemporaryTemplate = inline_dropdowni18n.gettext(`<option correct="False">${tempStringOne}<optionhint>${tempStringTwo}</optionhint></option>`);
       self.$xml.find(`#${elementId}`).append(xmlTemporaryTemplate);
       self.updateXmlEditor(self.$xml.get(0));
     };
 
-    this.editAlternativeWord = function () {
+    this.editIncorrectWord = function () {
       const elementId = $(this).parent().parent().parent()
         .parent()
         .attr('option_id');
@@ -287,7 +287,7 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
       self.updateXmlEditor(self.$xml.get(0), false);
     };
 
-    this.editAlternativeFeedbackMessage = function () {
+    this.editIncorrectFeedbackMessage = function () {
       const elementId = $(this).parent().parent().parent()
         .parent()
         .attr('option_id');
