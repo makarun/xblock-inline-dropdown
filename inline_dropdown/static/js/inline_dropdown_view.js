@@ -176,7 +176,7 @@ function InlineDropdownXBlockInitView(runtime, element) {
         	if (this.getAttribute('xblock_id') == xblock_id) {
         		if (this.selectedIndex == 0) {
     	    		complete = false;
-    	    		show_feedback(`<p class="incorrect">${inline_dropdowni18n.gettext('You haven\'t completed the question.')}</p>`);
+    	    		show_feedback(`<p class="incorrect">${inline_dropdowni18n.gettext("You haven\'t completed the question.")}</p>`);
 	        	}
         		selections[this.getAttribute('input')] = this[this.selectedIndex].text;
         		selection_order[this.getAttribute('input')] = counter;
