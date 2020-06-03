@@ -1,28 +1,34 @@
 {% load i18n %}
-<div class='inline_dropdown'>
-	<h2 class='problem_header'>{{display_name}}</h2>
-	<div class='problem_progress'>({{problem_progress}})</div>
-	<div class='question_prompt'>{{prompt | safe}}</div>
-	<div class='feedback' style='display:none'>{{feedback}}</div>
-	<div class='hint' style='display:none'>{{hint}}</div>
-	<div class='button_holder'>
-		<div style='display:inline'>
-			<input
-			class='check_button'
-			type='button'
-			value={% trans 'Check' %}></input>
+<div class="problems-wrapper inline_dropdown">
+	<h3 class='problem_header'>{{display_name}}</h3>
+	<div class='problem-progress'>({{problem_progress}})</div>
+	<div class="problem">
+		<div>
+			<div class="wrapper-problem-response">
+				<div class='question_prompt'>{{prompt | safe}}</div>
+			</div>
 		</div>
-		<div class='hint_button_holder' style='display:none'>
-			<input
-			class='hint_button'
-			type='button'
-			value={% trans 'Hint' %}></input>
+		<div class='action'>
+			<div class='feedback' style='display:none'>{{feedback}}</div>
+			<div class='problem-hint hint' style='display:none'>{{hint}}</div>
+			<div class="submit-attempt-container" style='display:inline'>
+				<button
+				class='btn btn-primary btn-sm submit'
+				type='button'><i class="fas fa-check"></i>{% trans 'Check' %}</button>
+			</div>
+			<div class="problem-action-buttons-wrapper">
+				<span class="problem-action-button-wrapper">
+					<div class='hint_button_holder' style='display:none'>
+						<button
+						class='btn btn-outline-primary btn-sm hint_button'
+						type='button'><i class="far fa-lightbulb" aria-hidden="true"></i>{% trans 'Hint' %}</button>
+					</div>
+				</span>
+				<span class="problem-action-button-wrapper">
+					<button class='btn btn-outline-primary btn-sm reset_button'	type='button'><i class="icon fa fa-refresh" aria-hidden="true"></i>{% trans 'Reset' %}</button>
+				</span>
+			</div>
 		</div>
-		<div style='display:inline'>
-			<input
-			class='reset_button'
-			type='button'
-			value={% trans 'Reset' %}></input>
-		</div>
-	</div>
-</div>
+	</div>	
+</div>	
+
