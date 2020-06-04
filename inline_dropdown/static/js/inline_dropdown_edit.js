@@ -33,9 +33,9 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
 
     this.getTemplates = () => {
       // this elements: questionBodyTemplate, questionIncorrectTemplate, demandHintTemplate are previously imported in inline_dropdown.py. there are assigns to this.variables
-      this.questionBodyTemplate = questionBodyTemplate;
-      this.questionIncorrectTemplate = questionIncorrectTemplate;
-      this.demandHintTemplate = demandHintTemplate;
+      this.questionBodyTemplate = inlineDropdownQuestionBodyTemplate;
+      this.questionIncorrectTemplate = inlineDropdownQuestionIncorrectTemplate;
+      this.demandHintTemplate = inlineDropdownDemandHintTemplate;
     };
 
     this.initEvents = () => {
