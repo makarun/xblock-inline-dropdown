@@ -126,7 +126,7 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
         this.mainContainer.append(bodyContainer);
       });
 
-      this.questionInput.text(copyXMLBody.text());
+      this.questionInput.val(copyXMLBody.text());
 
       this.$xml.find('demandhint hint').each((hintIndex, hint) => {
         const htmlDemandHint = $.parseHTML(self.demandHintTemplate);
@@ -142,9 +142,8 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
 
     this.textareaToXML = (rawText) => {
       // Regex function for finding elements with [] and variable without []
-      const regexWithoutBrackets = /(?<=\[).+?(?=\])/g;
       const regexWithBrackets = /\[(.*?)\]/g;
-      const regexMatches = rawText.match(regexWithoutBrackets);
+      const regexMatches = this.removeSquareBrackets(rawText.match(regexWithBrackets));
       // Remove optionresponse from xml, when you removed from visual editor
       if (regexMatches === null) {
         self.$xml.find('optionresponse').remove();
@@ -245,7 +244,13 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
     };
 
     this.updateXmlEditor = (data, refresh = true) => {
-      this.xmlEditor.setValue(this.prettifyXml(this.getXmlString(data)));
+      // if browser is Chrome use XLS to prettifyXML.
+      if (/Chrome/.test(navigator.userAgent)){
+        this.xmlEditor.setValue(this.prettifyXml(this.getXmlString(data)));
+      }
+      else {
+        this.xmlEditor.setValue(this.getXmlString(data));
+      }
       if (refresh) {
         this.refreshView();
       }
@@ -318,6 +323,14 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
       const elementIndex = $(this).parent().index();
       self.$xml.find('demandhint').children().eq(parseInt(elementIndex)).text($(this).val());
       self.updateXmlEditor(self.$xml.get(0), false);
+    };
+
+    this.removeSquareBrackets = function(arrayElements){
+      let result = []
+      $(arrayElements).each(function(index,element){
+        result.push(element.replace(/\[|\]/g,''));
+      });
+      return result;
     };
 
     this.onCancel = function () {
