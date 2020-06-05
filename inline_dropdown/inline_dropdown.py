@@ -63,8 +63,8 @@ class InlineDropdownXBlock(XBlock):
                 </optionresponse>
                 <optionresponse>
                     <optioninput id="i2">
-                        <option correct="False">cucumber<optionhint>Many people mistakenly think a cucumber is a vegetable. However, because a cucumber is the fertilized ovary of a cucumber plant and contains seeds, it is a fruit.</optionhint></option>
                         <option correct="True">onion<optionhint>The onion is the bulb of the onion plant and contains no seeds and is therefore a vegetable.</optionhint></option>
+                        <option correct="False">cucumber<optionhint>Many people mistakenly think a cucumber is a vegetable. However, because a cucumber is the fertilized ovary of a cucumber plant and contains seeds, it is a fruit.</optionhint></option>
                     </optioninput>
                 </optionresponse>
                 <demandhint>
@@ -183,7 +183,9 @@ class InlineDropdownXBlock(XBlock):
             context = ctx,
             i18n_service=self.runtime.service(self, "i18n"),
         ))
-
+        frag.add_css(loader.load_unicode('static/css/inline_dropdown_edit.css'))
+        # frag.add_javascript(self.get_translation_content())
+        frag.add_javascript(loader.load_unicode('static/js/template_edit.js'))
         frag.add_javascript(loader.load_unicode('static/js/inline_dropdown_edit.js'))
         frag.initialize_js('InlineDropdownXBlockInitEdit')
         return frag
@@ -216,10 +218,10 @@ class InlineDropdownXBlock(XBlock):
             selected_text = self.selections[key]
 
             if self.correctness[key][selected_text] == 'True':
-                default_feedback = '<p class="correct"><strong>(' + str(pos) + ') ' + i18n_('Correct') + '</strong></p>'
+                default_feedback = '<p class="correct"><strong>(' + str(pos) + ') ' + i18n_(_('Correct')) + '</strong></p>'
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="correct"><strong>(' + str(pos) + ') ' + i18n_('Correct') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<p class="correct"><strong>(' + str(pos) + ') ' + i18n_(_('Correct')) + ': </strong>' + self.feedback[key][selected_text] + '</p>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -227,10 +229,10 @@ class InlineDropdownXBlock(XBlock):
                 self.student_correctness[key] = 'True'
                 correct_count += 1
             else:
-                default_feedback = '<p class="incorrect"><strong>(' + str(pos) + ') ' + i18n_('Incorrect') + '</strong></p>'
+                default_feedback = '<p class="incorrect"><strong>(' + str(pos) + ') ' + i18n_(_('Incorrect')) + '</strong></p>'
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="incorrect"><strong>(' + str(pos) + ') ' + i18n_('Incorrect') + ': </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<p class="incorrect"><strong>(' + str(pos) + ') ' + i18n_(_('Incorrect')) + ': </strong>' + self.feedback[key][selected_text] + '</p>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -439,17 +441,16 @@ class InlineDropdownXBlock(XBlock):
                 '{weight} points possible',
                 self.weight,
             ).format(
-                weight=self.weight
-            )
+                weight=self.weight)
         else:
             score_string = '{0:g}'.format(self.score)
             result = score_string + i18n_(
                 "/{weight} point",
                 "/{weight} points",
-                int(score_string),
+                self.weight
             ).format(
-                weight=self.weight
-            )
+                weight=self.weight)
+
         return result
 
     def _publish_grade(self):

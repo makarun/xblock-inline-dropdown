@@ -2,75 +2,67 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# krystianlygas <krystian.lygas@gmail.com>, 2020
+# Emilia Dolega <emilia.dolega@opi.org.pl>, 2020
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 12:48+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2020-05-29 11:39+0200\n"
+"PO-Revision-Date: 2020-05-29 09:11+0000\n"
+"Last-Translator: Emilia Dolega <emilia.dolega@opi.org.pl>, 2020\n"
+"Language-Team: Polish (https://www.transifex.com/navoica/teams/104253/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: inline_dropdown.py:35 static/html/inline_dropdown_edit.html:8
+#: inline_dropdown.py:38 static/html/inline_dropdown_edit.html:7
 msgid "Display Name"
 msgstr "Nazwa"
 
-#: inline_dropdown.py:36
+#: inline_dropdown.py:39
 msgid "Inline Dropdown"
 msgstr "Zagnieżdżone z rozwijaną listą wyboru"
 
-#: inline_dropdown.py:38 static/html/inline_dropdown_edit.html:11
+#: inline_dropdown.py:41 static/html/inline_dropdown_edit.html:10
 msgid "This name appears in the horizontal navigation at the top of the page"
 msgstr "Ta nazwa pojawia się w nawigacji na górze strony"
 
-#: inline_dropdown.py:44
+#: inline_dropdown.py:47
 msgid "Hints for the question"
-msgstr "Podpowiedź do pytania"
+msgstr "Podpowiedzi do pytania"
 
-#: inline_dropdown.py:48
+#: inline_dropdown.py:51
 msgid "Default question content "
-msgstr "Domyśla treść pytania"
+msgstr "Domyślna treść pytania"
 
-#: inline_dropdown.py:50
+#: inline_dropdown.py:53
 msgid ""
 "\n"
 "            <inline_dropdown schema_version='1'>\n"
 "                <body>\n"
-"                    <p>A fruit is the fertilized ovary of a tree or plant "
-"and contains seeds. Given this, a <input_ref input=\"i1\"/> is consider a "
-"fruit, while a <input_ref input=\"i2\"/> is considered a vegetable.</p>\n"
+"                    <p>A fruit is the fertilized ovary of a tree or plant and contains seeds. Given this, a <input_ref input=\"i1\"/> is consider a fruit, while a <input_ref input=\"i2\"/> is considered a vegetable.</p>\n"
 "                </body>\n"
 "                <optionresponse>\n"
 "                    <optioninput id=\"i1\">\n"
-"                        <option correct=\"True\">tomato<optionhint>Since the "
-"tomato is the fertilized ovary of a tomato plant and contains seeds, it is a "
-"fruit.</optionhint></option>\n"
-"                        <option correct=\"False\">potato<optionhint>A potato "
-"is an edible part of a plant in tuber form and is a vegetable, not a fruit.</"
-"optionhint></option>\n"
+"                        <option correct=\"True\">tomato<optionhint>Since the tomato is the fertilized ovary of a tomato plant and contains seeds, it is a fruit.</optionhint></option>\n"
+"                        <option correct=\"False\">potato<optionhint>A potato is an edible part of a plant in tuber form and is a vegetable, not a fruit.</optionhint></option>\n"
 "                    </optioninput>\n"
 "                </optionresponse>\n"
 "                <optionresponse>\n"
 "                    <optioninput id=\"i2\">\n"
-"                        <option correct=\"False\">cucumber<optionhint>Many "
-"people mistakenly think a cucumber is a vegetable. However, because a "
-"cucumber is the fertilized ovary of a cucumber plant and contains seeds, it "
-"is a fruit.</optionhint></option>\n"
-"                        <option correct=\"True\">onion<optionhint>The onion "
-"is the bulb of the onion plant and contains no seeds and is therefore a "
-"vegetable.</optionhint></option>\n"
+"                        <option correct=\"True\">onion<optionhint>The onion is the bulb of the onion plant and contains no seeds and is therefore a vegetable.</optionhint></option>\n"
+"                        <option correct=\"False\">cucumber<optionhint>Many people mistakenly think a cucumber is a vegetable. However, because a cucumber is the fertilized ovary of a cucumber plant and contains seeds, it is a fruit.</optionhint></option>\n"
 "                    </optioninput>\n"
 "                </optionresponse>\n"
 "                <demandhint>\n"
-"                    <hint>A fruit is the fertilized ovary from a flower.</"
-"hint>\n"
+"                    <hint>A fruit is the fertilized ovary from a flower.</hint>\n"
 "                    <hint>A fruit contains seeds of the plant.</hint>\n"
 "                </demandhint>\n"
 "            </inline_dropdown>\n"
@@ -79,87 +71,77 @@ msgstr ""
 "\n"
 "            <inline_dropdown schema_version='1'>\n"
 "                <body>\n"
-"                    <p>Owoce powstają z kwiatów drzew, krzewów i roślin ogrodowych oraz zawierają nasiona. "
-"W związku z tym, <input_ref input=\"i1\"/> jest owocem, a "
-"<input_ref input=\"i2\"/> jest warzywem.</p>\n"
+"                    <p> Owoce powstają z kwiatów drzew, krzewów i roślin ogrodowych oraz zawierają nasiona. W związku z tym,  <input_ref input=\"i1\"/> jest owocem, a <input_ref input=\"i2\"/> jest warzywem. </p>\n"
 "                </body>\n"
 "                <optionresponse>\n"
 "                    <optioninput id=\"i1\">\n"
-"                        <option correct=\"True\">pomidor<optionhint>W związku z tym, że "
-"pomidor powstaje z kwiata i zawiera nasiona jest "
-"owocem.</optionhint></option>\n"
-"                        <option correct=\"False\">ziemniak<optionhint>Ziemniak "
-"jest jadalną częścią rośliny w postaci bulwy i jest warzywem, nie owocem.</"
-"optionhint></option>\n"
+"                        <option correct=\"True\">pomidor<optionhint>W związku z tym, że pomidor powstaje z kwiata i zawiera nasiona jest owocem.</optionhint></option>\n"
+"                        <option correct=\"False\">ziemniak<optionhint>Ziemniak jest jadalną częścią rośliny w postaci bulwy i jest warzywem, nie owocem.</optionhint></option>\n"
 "                    </optioninput>\n"
 "                </optionresponse>\n"
 "                <optionresponse>\n"
 "                    <optioninput id=\"i2\">\n"
-"                        <option correct=\"False\">ogórek<optionhint>Wiele "
-"osób błędnie uważa ogórka za warzywo. Ze wzędu na to, że ogórek "
-"zawiera nasiona i powstaje z kwiatu "
-"jest owocem.</optionhint></option>\n"
-"                        <option correct=\"True\">cebula<optionhint>Cebula wyrasta "
-"z cebulki, nie zawiera nasion więc jest warzywem.</optionhint></option>\n"
+"                        <option correct=\"True\">cebula<optionhint>Cebula wyrasta z cebulki, nie zawiera nasion więc jest warzywem. </optionhint></option>\n"
+"                        <option correct=\"False\">ogórek<optionhint>Wiele osób błędnie uważa ogórka za warzywo. Ze wzędu na to, że ogórek zawiera nasiona i powstaje z kwiatu jest owocem.</optionhint></option>\n"
 "                    </optioninput>\n"
 "                </optionresponse>\n"
 "                <demandhint>\n"
-"                    <hint>Owoc zawiera nasiona i powstaje z kwiatu.</"
-"hint>\n"
+"                    <hint>Owoc zawiera nasiona i powstaje z kwiatu.</hint>\n"
 "                    <hint>Owoc zawiera nasiona rośliny.</hint>\n"
 "                </demandhint>\n"
 "            </inline_dropdown>\n"
 "        "
 
-#: inline_dropdown.py:82
+#: inline_dropdown.py:85
 msgid "Correctness of input values"
 msgstr "Poprawność wprowadzonych danych"
 
-#: inline_dropdown.py:88
+#: inline_dropdown.py:91
 msgid "Order of selections in body"
-msgstr ""
+msgstr "Kolejność opcji w treści"
 
-#: inline_dropdown.py:94
+#: inline_dropdown.py:97
 msgid "Saved student input values"
-msgstr ""
+msgstr "Zapisane wartości wejściowe studenta"
 
-#: inline_dropdown.py:100
+#: inline_dropdown.py:103
 msgid "Saved student correctness values"
-msgstr ""
+msgstr "Zapisane poprawne wyniki studenta"
 
-#: inline_dropdown.py:106
+#: inline_dropdown.py:109
 msgid "Feedback for input values"
-msgstr ""
+msgstr "Informacja zwrotna dla wartości wejściowych"
 
-#: inline_dropdown.py:112
+#: inline_dropdown.py:115
 msgid "Current feedback state"
-msgstr ""
+msgstr "Aktualny stan informacji zwrotnej"
 
-#: inline_dropdown.py:118
+#: inline_dropdown.py:121
 msgid "Indicates whether the learner has completed the problem at least once"
-msgstr ""
+msgstr "Wskazuje, czy student przynajmniej raz podszedł do ćwiczenia. "
 
-#: inline_dropdown.py:124 static/html/inline_dropdown_edit.html:16
+#: inline_dropdown.py:127 static/html/inline_dropdown_edit.html:14
 msgid "Weight"
 msgstr "Waga"
 
-#: inline_dropdown.py:126 static/html/inline_dropdown_edit.html:19
+#: inline_dropdown.py:129 static/html/inline_dropdown_edit.html:17
 msgid "This assigns an integer value representing the weight of this problem"
 msgstr "Przypisuje liczbę całkowitą reprezentującą wagę tego problemu"
 
-#: inline_dropdown.py:202 inline_dropdown.py:205
+#: inline_dropdown.py:221 inline_dropdown.py:224
 msgid "Correct"
-msgstr "Dobrze"
+msgstr "Poprawnie"
 
-#: inline_dropdown.py:213 inline_dropdown.py:216
+#: inline_dropdown.py:232 inline_dropdown.py:235
 msgid "Incorrect"
-msgstr "Źle"
+msgstr "Błędnie"
 
-#: inline_dropdown.py:318 inline_dropdown.py:322
+#: inline_dropdown.py:338 inline_dropdown.py:342
+#: static/html/inline_dropdown_view.html:19
 msgid "Hint"
 msgstr "Podpowiedź"
 
-#: inline_dropdown.py:435
+#: inline_dropdown.py:440
 #, python-brace-format
 msgid "{weight} point possible"
 msgid_plural "{weight} points possible"
@@ -168,7 +150,7 @@ msgstr[1] "{weight} możliwe punkty"
 msgstr[2] "{weight} możliwe punkty"
 msgstr[3] "{weight} możliwych punktów"
 
-#: inline_dropdown.py:444
+#: inline_dropdown.py:449
 #, python-brace-format
 msgid "/{weight} point"
 msgid_plural "/{weight} points"
@@ -177,23 +159,57 @@ msgstr[1] "/{weight} punkty"
 msgstr[2] "/{weight} punkty"
 msgstr[3] "/{weight} punkty"
 
-#: inline_dropdown.py:495
+#: inline_dropdown.py:531
 msgid "Dummy"
-msgstr ""
+msgstr "Lorem ipsum"
 
 #: static/html/inline_dropdown_edit.html:24
+msgid "Problem"
+msgstr "Ćwiczenie"
+
+#: static/html/inline_dropdown_edit.html:25
+msgid "Switch to XML editor view"
+msgstr "Przełącz widok do edytora XML"
+
+#: static/html/inline_dropdown_edit.html:27
+msgid ""
+"Enter a problem here. In square brackets [] enter the words, which will be "
+"changed into gaps."
+msgstr ""
+"Tutaj wpisz treść zadania. W nawiasach kwadratowych [] wpisz słowa, które "
+"zmienią się w luki."
+
+#: static/html/inline_dropdown_edit.html:36
+msgid "Beneath there is a list of hints. You can modify, add and delete them."
+msgstr ""
+"Pod spodem znajduje się lista podpowiedzi. Możesz je modyfikować, dodawać i "
+"usuwać."
+
+#: static/html/inline_dropdown_edit.html:39
+msgid "Hints"
+msgstr "Podpowiedzi"
+
+#: static/html/inline_dropdown_edit.html:44
+msgid "Add a hint"
+msgstr "Dodaj podpowiedź"
+
+#: static/html/inline_dropdown_edit.html:54
 msgid "Definition"
 msgstr "Definicja"
 
-#: static/html/inline_dropdown_edit.html:25
+#: static/html/inline_dropdown_edit.html:55
+msgid "Switch to Visual editor view"
+msgstr "Przełącz widok do edytora Wizualnego"
+
+#: static/html/inline_dropdown_edit.html:57
 msgid "The XML definition for the problem"
 msgstr "XML definicja problemu"
 
-#: static/html/inline_dropdown_edit.html:37
+#: static/html/inline_dropdown_edit.html:72
 msgid "Save"
 msgstr "Zapisz"
 
-#: static/html/inline_dropdown_edit.html:40
+#: static/html/inline_dropdown_edit.html:75
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -201,10 +217,56 @@ msgstr "Anuluj"
 msgid "Check"
 msgstr "Prześlij"
 
+#: static/html/inline_dropdown_view.html:25
+msgid "Reset"
+msgstr "Zresetuj"
+
+#: static/js/inline_dropdown_edit.js:174
+msgid "A text which will appear after giving a correct response"
+msgstr "Tekst, który wyświetli się po udzieleniu poprawnej odpowiedzi"
+
+#: static/js/inline_dropdown_edit.js:269
+msgid "Incorrect response"
+msgstr "Odpowiedź niepoprawna"
+
+#: static/js/inline_dropdown_edit.js:270
+msgid "A text which will appear after giving a incorrect response"
+msgstr "Tekst, który wyświetli się po udzieleniu błędnej odpowiedzi"
+
 #: static/js/inline_dropdown_view.js:54
 msgid "(Loading...)"
 msgstr "(Wczytywanie...)"
 
 #: static/js/inline_dropdown_view.js:179
 msgid "You haven't completed the question."
-msgstr "Nie wypełniłeś pytania."
+msgstr "Nie uzupełniono pytania."
+
+#: static/js/template_edit.js:2
+msgid ""
+"Beneath you have a list of words extracted from the square brackets []. You "
+"can add feedback message which will appear after giving the correct "
+"response. You should also add Incorrect responses."
+msgstr ""
+"Pod spodem znajduje się lista słów wyodrębnionych w ćwiczeniu nawiasami "
+"kwadratowymi []. Możesz tu dodać informację zwrotną, która pojawi się po "
+"udzieleniu poprawnej odpowiedzi. Należy również dodać warianty niepoprawne."
+
+#: static/js/template_edit.js:3
+msgid "Feedback"
+msgstr "Wiadomość zwrotna"
+
+#: static/js/template_edit.js:4
+msgid "Add incorrect option"
+msgstr "Dodaj odpowiedź niepoprawną"
+
+#: static/js/template_edit.js:5
+msgid "Incorrect options"
+msgstr "Odpowiedzi niepoprawne"
+
+#: static/js/template_edit.js:6
+msgid "Correct option: "
+msgstr "Poprawna odpowiedź: "
+
+#: static/js/template_edit.js:30
+msgid "Delete"
+msgstr "Usuń"
