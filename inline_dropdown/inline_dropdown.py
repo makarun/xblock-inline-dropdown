@@ -5,6 +5,7 @@ from django.template import Context, Template
 from django.utils.translation import ungettext
 from django.utils import translation
 from django.utils.translation import ugettext_lazy
+import random
 
 from xblock.core import XBlock
 from xblock.fields import Scope, String, List, Float, Integer, Dict, Boolean
@@ -402,7 +403,7 @@ class InlineDropdownXBlock(XBlock):
                 if optioninput.attrib['id'] == input_ref.attrib['input']:
                     newoption = SubElement(input_ref, 'option')
                     newoption.text = ''
-                    for option in optioninput.iter('option'):
+                    for option in self.shuffle_sequence(optioninput.iter('option')):
                         newoption = SubElement(input_ref, 'option')
                         newoption.text = option.text
                         valuecorrectness[option.text] = option.attrib['correct']
@@ -491,6 +492,11 @@ class InlineDropdownXBlock(XBlock):
             self.fields['display_name']._default = i18n_(self.fields['display_name']._default)
             self.fields['question_string']._default = i18n_(self.fields['question_string']._default)
             self.skip_flag = True
+
+    def shuffle_sequence(self, sequence):
+        shuffled_sequence = [element for element in sequence]
+        random.shuffle(shuffled_sequence)
+        return shuffled_sequence
 
     @staticmethod
     def workbench_scenarios():
