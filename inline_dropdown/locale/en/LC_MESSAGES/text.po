@@ -6,9 +6,21 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  djangojs-partial.po (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-29 11:39+0200\n"
+"POT-Creation-Date: 2020-11-26 17:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  django-partial.po (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-26 17:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,27 +30,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: inline_dropdown.py:38 static/html/inline_dropdown_edit.html:7
+#: static/js/inline_dropdown_edit.js:18
+msgid "Editor"
+msgstr ""
+
+#: static/js/inline_dropdown_edit.js:19
+msgid "Settings"
+msgstr ""
+
+#: static/js/inline_dropdown_edit.js:196
+msgid "A text which will appear after giving a correct response"
+msgstr ""
+
+#: static/js/inline_dropdown_edit.js:309
+msgid "Incorrect response"
+msgstr ""
+
+#: static/js/inline_dropdown_edit.js:310
+msgid "A text which will appear after giving a incorrect response"
+msgstr ""
+
+#: static/js/inline_dropdown_view.js:73 static/js/inline_dropdown_view.js:123
+msgid "You haven't completed the question."
+msgstr ""
+
+#: static/js/inline_dropdown_view.js:170
+msgid "(Loading...)"
+msgstr ""
+
+#: static/js/template_edit.js:2
+msgid ""
+"Beneath you have a list of words extracted from the square brackets []. You "
+"can add feedback message which will appear after giving the correct "
+"response. You should also add Incorrect responses."
+msgstr ""
+
+#: static/js/template_edit.js:3
+msgid "Feedback"
+msgstr ""
+
+#: static/js/template_edit.js:4
+msgid "Add incorrect option"
+msgstr ""
+
+#: static/js/template_edit.js:5
+msgid "Incorrect options"
+msgstr ""
+
+#: static/js/template_edit.js:6
+msgid "Correct option: "
+msgstr ""
+
+#: static/js/template_edit.js:7
+msgid "Delete"
+msgstr ""
+
+#: inline_dropdown.py:36
 msgid "Display Name"
 msgstr ""
 
-#: inline_dropdown.py:39
+#: inline_dropdown.py:37
 msgid "Inline Dropdown"
 msgstr ""
 
-#: inline_dropdown.py:41 static/html/inline_dropdown_edit.html:10
+#: inline_dropdown.py:39
 msgid "This name appears in the horizontal navigation at the top of the page"
 msgstr ""
 
-#: inline_dropdown.py:47
-msgid "Hints for the question"
-msgstr ""
-
-#: inline_dropdown.py:51
+#: inline_dropdown.py:43
 msgid "Default question content "
 msgstr ""
 
-#: inline_dropdown.py:53
+#: inline_dropdown.py:45
 msgid ""
 "\n"
 "            <inline_dropdown schema_version='1'>\n"
@@ -77,170 +140,351 @@ msgid ""
 "        "
 msgstr ""
 
-#: inline_dropdown.py:85
-msgid "Correctness of input values"
-msgstr ""
-
-#: inline_dropdown.py:91
+#: inline_dropdown.py:72
 msgid "Order of selections in body"
 msgstr ""
 
-#: inline_dropdown.py:97
+#: inline_dropdown.py:78 utils/extensions.py:103
 msgid "Saved student input values"
 msgstr ""
 
-#: inline_dropdown.py:103
-msgid "Saved student correctness values"
+#: inline_dropdown.py:167
+msgid "Problem closed"
 msgstr ""
 
-#: inline_dropdown.py:109
-msgid "Feedback for input values"
+#: inline_dropdown.py:174
+#, python-brace-format
+msgid ""
+"You must wait at least {wait_secs} between submissions. {remaining_secs} "
+"remaining."
 msgstr ""
 
-#: inline_dropdown.py:115
-msgid "Current feedback state"
+#: inline_dropdown.py:244
+msgid "You cannot select Reset for a problem that is closed."
 msgstr ""
 
-#: inline_dropdown.py:121
-msgid "Indicates whether the learner has completed the problem at least once"
+#: inline_dropdown.py:330
+msgid "Saved"
 msgstr ""
 
-#: inline_dropdown.py:127 static/html/inline_dropdown_edit.html:14
-msgid "Weight"
-msgstr ""
-
-#: inline_dropdown.py:129 static/html/inline_dropdown_edit.html:17
-msgid "This assigns an integer value representing the weight of this problem"
-msgstr ""
-
-#: inline_dropdown.py:221 inline_dropdown.py:224
-msgid "Correct"
-msgstr ""
-
-#: inline_dropdown.py:232 inline_dropdown.py:235
-msgid "Incorrect"
-msgstr ""
-
-#: inline_dropdown.py:338 inline_dropdown.py:342
-#: static/html/inline_dropdown_view.html:19
+#: inline_dropdown.py:342 inline_dropdown.py:346
+#: static/html/inline_dropdown_view.html:23
+#: static/html/inline_dropdown_view.html:25
 msgid "Hint"
 msgstr ""
 
-#: inline_dropdown.py:440
-#, python-brace-format
-msgid "{weight} point possible"
-msgid_plural "{weight} points possible"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inline_dropdown.py:449
-#, python-brace-format
-msgid "/{weight} point"
-msgid_plural "/{weight} points"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inline_dropdown.py:531
-msgid "Dummy"
-msgstr ""
-
-#: static/html/inline_dropdown_edit.html:24
+#: static/html/inline_dropdown_edit.html:44
 msgid "Problem"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:25
+#: static/html/inline_dropdown_edit.html:45
 msgid "Switch to XML editor view"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:27
+#: static/html/inline_dropdown_edit.html:47
 msgid ""
 "Enter a problem here. In square brackets [] enter the words, which will be "
 "changed into gaps."
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:36
+#: static/html/inline_dropdown_edit.html:56
 msgid "Beneath there is a list of hints. You can modify, add and delete them."
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:39
+#: static/html/inline_dropdown_edit.html:59
 msgid "Hints"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:44
+#: static/html/inline_dropdown_edit.html:64
 msgid "Add a hint"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:54
+#: static/html/inline_dropdown_edit.html:74
 msgid "Definition"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:55
+#: static/html/inline_dropdown_edit.html:75
 msgid "Switch to Visual editor view"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:57
+#: static/html/inline_dropdown_edit.html:77
 msgid "The XML definition for the problem"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:72
+#: static/html/inline_dropdown_edit.html:93
+#: static/html/inline_dropdown_view.html:30
+#: static/html/inline_dropdown_view.html:32
 msgid "Save"
 msgstr ""
 
-#: static/html/inline_dropdown_edit.html:75
+#: static/html/inline_dropdown_edit.html:96
 msgid "Cancel"
 msgstr ""
 
-#: static/html/inline_dropdown_view.html:13
+#: static/html/inline_dropdown_view.html:14
 msgid "Check"
 msgstr ""
 
-#: static/html/inline_dropdown_view.html:25
+#: static/html/inline_dropdown_view.html:26
+msgid "Show hint"
+msgstr ""
+
+#: static/html/inline_dropdown_view.html:33
+msgid "Save your answer"
+msgstr ""
+
+#: static/html/inline_dropdown_view.html:37
 msgid "Reset"
 msgstr ""
 
-#: static/js/inline_dropdown_edit.js:174
-msgid "A text which will appear after giving a correct response"
+#: static/html/inline_dropdown_view.html:40 utils/extensions.py:150
+msgid "Show Answer"
 msgstr ""
 
-#: static/js/inline_dropdown_edit.js:269
-msgid "Incorrect response"
+#: utils/extensions.py:73
+msgid "True"
 msgstr ""
 
-#: static/js/inline_dropdown_edit.js:270
-msgid "A text which will appear after giving a incorrect response"
+#: utils/extensions.py:73
+msgid "False"
 msgstr ""
 
-#: static/js/inline_dropdown_view.js:54
-msgid "(Loading...)"
+#: utils/extensions.py:82
+msgid "Hints for the question"
 msgstr ""
 
-#: static/js/inline_dropdown_view.js:179
-msgid "You haven't completed the question."
+#: utils/extensions.py:91
+msgid "Correctness of input values"
 msgstr ""
 
-#: static/js/template_edit.js:2
+#: utils/extensions.py:97
+msgid "Order of input_texts in body"
+msgstr ""
+
+#: utils/extensions.py:109
+msgid "Saved student correctness values"
+msgstr ""
+
+#: utils/extensions.py:115
+msgid "Feedback for input values"
+msgstr ""
+
+#: utils/extensions.py:121
+msgid "Current feedback state"
+msgstr ""
+
+#: utils/extensions.py:127
+msgid "Indicates whether the learner has completed the problem at least once"
+msgstr ""
+
+#: utils/extensions.py:133
+msgid "Weight"
+msgstr ""
+
+#: utils/extensions.py:135
+msgid "This assigns an integer value representing the weight of this problem"
+msgstr ""
+
+#: utils/extensions.py:143
+msgid "Force Save Button"
+msgstr ""
+
+#: utils/extensions.py:144
+msgid "Whether to force the save button to appear on the page"
+msgstr ""
+
+#: utils/extensions.py:151
 msgid ""
-"Beneath you have a list of words extracted from the square brackets []. You "
-"can add feedback message which will appear after giving the correct response. "
-"You should also add Incorrect responses."
+"Defines when to show the answer to the problem. A default value can be set "
+"in Advanced Settings."
 msgstr ""
 
-#: static/js/template_edit.js:3
-msgid "Feedback"
+#: utils/extensions.py:156
+msgid "Always"
 msgstr ""
 
-#: static/js/template_edit.js:4
-msgid "Add incorrect option"
+#: utils/extensions.py:157
+msgid "Answered"
 msgstr ""
 
-#: static/js/template_edit.js:5
-msgid "Incorrect options"
+#: utils/extensions.py:158
+msgid "Attempted"
 msgstr ""
 
-#: static/js/template_edit.js:6
-msgid "Correct option: "
+#: utils/extensions.py:159
+msgid "Closed"
 msgstr ""
 
-#: static/js/template_edit.js:30
-msgid "Delete"
+#: utils/extensions.py:160
+msgid "Finished"
+msgstr ""
+
+#: utils/extensions.py:161
+msgid "Correct or Past Due"
+msgstr ""
+
+#: utils/extensions.py:162
+msgid "Past Due"
+msgstr ""
+
+#: utils/extensions.py:163
+msgid "Never"
+msgstr ""
+
+#: utils/extensions.py:167
+msgid ""
+"Determines whether a 'Reset' button is shown so the user may reset their "
+"answer. A default value can be set in Advanced Settings."
+msgstr ""
+
+#: utils/extensions.py:171
+msgid "Show Reset Button"
+msgstr ""
+
+#: utils/extensions.py:174
+msgid "Last submission time"
+msgstr ""
+
+#: utils/extensions.py:176
+msgid "Timer Between Attempts"
+msgstr ""
+
+#: utils/extensions.py:177
+msgid ""
+"Seconds a student must wait between submissions for a problem with multiple "
+"attempts."
+msgstr ""
+
+#: utils/extensions.py:182
+msgid "Number of attempts taken by the student on this problem"
+msgstr ""
+
+#: utils/extensions.py:188
+msgid "Maximum Attempts"
+msgstr ""
+
+#: utils/extensions.py:189
+msgid ""
+"Defines the number of times a student can try to answer this problem. If the "
+"value is not set, infinite attempts are allowed."
+msgstr ""
+
+#: utils/extensions.py:193
+msgid "Whether or not the answers have been saved since last submit"
+msgstr ""
+
+#. Translators: Separator used in NumericalResponse to display multiple answers.
+#: utils/extensions.py:220
+msgid "or"
+msgstr ""
+
+#: utils/extensions.py:225
+msgid "Correct answers"
+msgstr ""
+
+#: utils/extensions.py:225
+msgid "Correct answer"
+msgstr ""
+
+#: utils/extensions.py:271
+#, python-brace-format
+msgid "You have used {num_used} of {num_total} attempt"
+msgid_plural "You have used {num_used} of {num_total} attempts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:286
+#, python-brace-format
+msgid "{num_hour} hour"
+msgid_plural "{num_hour} hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:291
+#, python-brace-format
+msgid "{num_minute} minute"
+msgid_plural "{num_minute} minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:297
+#, python-brace-format
+msgid "{num_second} second"
+msgid_plural "{num_second} seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:360
+#, python-brace-format
+msgid "{weight} point possible (graded, results hidden)"
+msgid_plural "{weight} points possible (graded, results hidden)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:365
+#, python-brace-format
+msgid "{weight} point possible (ungraded, results hidden)"
+msgid_plural "{weight} points possible (ungraded, results hidden)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:373
+#, python-brace-format
+msgid "{weight} point possible (graded)"
+msgid_plural "{weight} points possible (graded)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:378
+#, python-brace-format
+msgid "{weight} point possible (ungraded)"
+msgid_plural "{weight} points possible (ungraded)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:385
+#, python-brace-format
+msgid "/{weight} point (graded)"
+msgid_plural "/{weight} points (graded)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:390
+#, python-brace-format
+msgid "/{weight} point (ungraded)"
+msgid_plural "/{weight} points (ungraded)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:412
+msgid "Answer submitted."
+msgstr ""
+
+#: utils/extensions.py:416
+msgid "Incorrect."
+msgstr ""
+
+#: utils/extensions.py:418
+#, python-brace-format
+msgid "Incorrect ({progress} point)."
+msgid_plural "Incorrect ({progress} points)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:425
+#, python-brace-format
+msgid "Partially correct ({progress} point)."
+msgid_plural "Partially correct ({progress} points)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:432
+#, python-brace-format
+msgid "Correct ({progress} point)."
+msgid_plural "Correct ({progress} points)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: utils/extensions.py:612
+msgid "Dummy"
 msgstr ""

@@ -2,31 +2,28 @@
 
 import pkg_resources
 from django.template import Context, Template
-from django.utils.translation import ungettext
 from django.utils import translation
-from django.utils.translation import ugettext_lazy
+from collections import OrderedDict
+import datetime
+from pytz import utc
 import random
 
 from xblock.core import XBlock
-from xblock.fields import Scope, String, List, Float, Integer, Dict, Boolean
-from xblock.fragment import Fragment
+from xblock.fields import Scope, String, Dict
+from web_fragments.fragment import Fragment
 from xblockutils.resources import ResourceLoader
+from .utils.extensions import XBlockCapaMixin
 
 from lxml import etree
 from xml.etree import ElementTree as ET
 from xml.etree.ElementTree import Element, SubElement
-
 from StringIO import StringIO
 
-import textwrap
-import operator
-
-# from django.utils.translation import ugettext as _
 _ = lambda text: text
 loader = ResourceLoader(__name__)
 
 @XBlock.needs('i18n')
-class InlineDropdownXBlock(XBlock):
+class InlineDropdownXBlock(XBlockCapaMixin):
     '''
     Icon of the XBlock. Values : [other (default), video, problem]
     '''
@@ -40,12 +37,6 @@ class InlineDropdownXBlock(XBlock):
         default=_('Inline Dropdown'),
         scope=Scope.settings,
         help=_('This name appears in the horizontal navigation at the top of the page')
-    )
-
-    hints = List(
-        default=[],
-        scope=Scope.content,
-        help=_('Hints for the question'),
     )
 
     question_string = String(
@@ -77,17 +68,6 @@ class InlineDropdownXBlock(XBlock):
         # default=textwrap.dedent(str(default_question))
     )
 
-    score = Float(
-        default=0.0,
-        scope=Scope.user_state,
-    )
-
-    correctness = Dict(
-        help=_('Correctness of input values'),
-        scope=Scope.user_state,
-        default={},
-    )
-
     selection_order = Dict(
         help=_('Order of selections in body'),
         scope=Scope.user_state,
@@ -99,41 +79,6 @@ class InlineDropdownXBlock(XBlock):
         scope=Scope.user_state,
         default={},
     )
-
-    student_correctness = Dict(
-        help=_('Saved student correctness values'),
-        scope=Scope.user_state,
-        default={},
-    )
-
-    feedback = Dict(
-        help=_('Feedback for input values'),
-        scope=Scope.user_state,
-        default={},
-    )
-
-    current_feedback = String(
-        help=_('Current feedback state'),
-        scope=Scope.user_state,
-        default='',
-    )
-
-    completed = Boolean(
-        help=_('Indicates whether the learner has completed the problem at least once'),
-        scope=Scope.user_state,
-        default=False,
-    )
-
-    weight = Integer(
-        display_name=_('Weight'),
-        help=_(
-            'This assigns an integer value representing '
-            'the weight of this problem'
-        ),
-        default=2,
-        scope=Scope.settings,
-    )
-
     has_score = True
     skip_flag = False
     '''
@@ -147,12 +92,18 @@ class InlineDropdownXBlock(XBlock):
         self.init_emulation()
         frag = Fragment()
         attributes = ''
-        i18n_ = self.runtime.service(self, "i18n").ugettext
+
         ctx = {
+            'element_id': self.location.html_id(),
             'display_name': self.display_name,
             'problem_progress': self._get_problem_progress(),
             'prompt': self._get_body(self.question_string),
-            'attributes': attributes
+            'attributes': attributes,
+            'should_show_reset_button': self.should_show_reset_button(),
+            'should_enable_submit_button': self.should_enable_submit_button(),
+            'submit_feedback': self.submit_feedback_msg(),
+            'should_show_answer_button': self.should_show_answer_button(),
+            'should_show_save_button': self.should_show_save_button(),
         }
 
         frag.add_content(loader.render_django_template(
@@ -174,8 +125,17 @@ class InlineDropdownXBlock(XBlock):
         '''
         self.init_emulation()
         frag = Fragment()
+        settings_ctx = dict()
+        settings_fields = ['display_name', 'weight', 'show_reset_button', 'max_attempts', 'showanswer', 'submission_wait_seconds']
+        settings_fields_enum =  {key: i for i, key in enumerate(settings_fields)}
+        for key, value in self.fields.items():
+            if key in settings_fields:
+                value.value = getattr(self,key)
+                settings_ctx.update({key:value})
+        settings_ctx = OrderedDict(sorted(settings_ctx.items(), key=lambda d: settings_fields_enum[d[0]]))
         ctx = {
             'display_name': self.display_name,
+            'settings': settings_ctx,
             'weight': self.weight,
             'xml_data': self.question_string,
         }
@@ -188,18 +148,10 @@ class InlineDropdownXBlock(XBlock):
         # frag.add_javascript(self.get_translation_content())
         frag.add_javascript(loader.load_unicode('static/js/template_edit.js'))
         frag.add_javascript(loader.load_unicode('static/js/inline_dropdown_edit.js'))
-        frag.initialize_js('InlineDropdownXBlockInitEdit')
+        frag.initialize_js('InlineDropdownXBlockInitEdit', {'settings_fields': settings_fields})
         return frag
 
-    def max_score(self):
-        """
-        Returns the configured number of possible points for this component.
-        Arguments:
-            None
-        Returns:
-            float: The number of possible points for this component
-        """
-        return self.weight if self.has_score else None
+
 
     @XBlock.json_handler
     def student_submit(self, submissions, suffix=''):
@@ -207,10 +159,28 @@ class InlineDropdownXBlock(XBlock):
         Save student answer
         '''
 
-        self.selections = submissions['selections']
-        self.selection_order = submissions['selection_order']
+        _ = self.runtime.service(self, "i18n").ugettext
+        current_time = datetime.datetime.now(utc)
+        # Wait time between resets: check if is too soon for submission.
 
-        self.current_feedback = ''
+        if self.closed():
+            msg = _(u'Problem closed')
+            return self.submit_feeedback(status=False, extra_element={'submit_notification' : {'status':'error','msg':msg}})
+
+        if self.last_submission_time is not None and self.submission_wait_seconds != 0:
+            seconds_since_submission = (current_time - self.last_submission_time).total_seconds()
+            if seconds_since_submission < self.submission_wait_seconds:
+                remaining_secs = int(self.submission_wait_seconds - seconds_since_submission)
+                msg = _(u'You must wait at least {wait_secs} between submissions. {remaining_secs} remaining.').format(
+                    wait_secs=self.pretty_print_seconds(self.submission_wait_seconds),
+                    remaining_secs=self.pretty_print_seconds(remaining_secs))
+                return self.submit_feeedback(status=False, extra_element={'submit_notification' : {'status':'error','msg':msg}})
+
+
+        self.selections = submissions['responses']
+        self.selection_order = submissions['responses_order']
+
+        self.current_feedback = '<br>'
 
         correct_count = 0
         i18n_ = self.runtime.service(self, "i18n").ugettext
@@ -219,10 +189,10 @@ class InlineDropdownXBlock(XBlock):
             selected_text = self.selections[key]
 
             if self.correctness[key][selected_text] == 'True':
-                default_feedback = '<p class="correct"><strong>(' + str(pos) + ') ' + i18n_(_('Correct')) + '</strong></p>'
+                default_feedback = ''
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="correct"><strong>(' + str(pos) + ') ' + i18n_(_('Correct')) + ': </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<small><i>(' + str(pos) + ') ' + self.feedback[key][selected_text] + '</i></small><br>'
                     else:
                         self.current_feedback += default_feedback
                 else:
@@ -230,17 +200,19 @@ class InlineDropdownXBlock(XBlock):
                 self.student_correctness[key] = 'True'
                 correct_count += 1
             else:
-                default_feedback = '<p class="incorrect"><strong>(' + str(pos) + ') ' + i18n_(_('Incorrect')) + '</strong></p>'
+                default_feedback = ''
                 if selected_text in self.feedback[key]:
                     if self.feedback[key][selected_text] is not None:
-                        self.current_feedback += '<p class="incorrect"><strong>(' + str(pos) + ') ' + i18n_(_('Incorrect')) + ': </strong>' + self.feedback[key][selected_text] + '</p>'
+                        self.current_feedback += '<small><i>(' + str(pos) + ') ' + self.feedback[key][selected_text] + '</i></small><br>'
                     else:
                         self.current_feedback += default_feedback
                 else:
                     self.current_feedback += default_feedback
                 self.student_correctness[key] = 'False'
-
+        self.current_feedback = self.current_feedback[:-2]
         self.score = float(self.weight) * correct_count / len(self.correctness)
+        self.attempts = self.attempts + 1
+        self.set_last_submission_time()
         self._publish_grade()
 
         self.runtime.publish(self, 'dropdown_selected', {
@@ -251,14 +223,7 @@ class InlineDropdownXBlock(XBlock):
 
         self.completed = True
 
-        result = {
-            'success': True,
-            'problem_progress': self._get_problem_progress(),
-            'submissions': self.selections,
-            'feedback': self.current_feedback,
-            'correctness': self.student_correctness,
-            'selection_order': self.selection_order,
-        }
+        result = self.submit_feeedback(status=True, extra_element={'submit_notification': self._get_answer_notification()})
         return result
 
     @XBlock.json_handler
@@ -266,19 +231,38 @@ class InlineDropdownXBlock(XBlock):
         '''
         Reset student answer
         '''
+        _ = self.runtime.service(self, "i18n").ugettext
+
+        if not self.should_show_reset_button():
+            result = {
+            'status': False,
+            'problem_progress': self._get_problem_progress(),
+            'submit_feedback': self.submit_feedback_msg(),
+            'should_enable_submit_button': self.should_enable_submit_button(),
+            'should_show_answer_button': self.should_show_answer_button(),
+            'should_show_save_button': self.should_show_save_button(),
+            'reset_notification' : {'status':'error','msg':_("You cannot select Reset for a problem that is closed.")}
+            }
+            return result
 
         self.score = 0.0
+        self.attempts = 0
         self.current_feedback = ''
         self.selections = {}
         self.student_correctness = {}
-
+        self.last_submission_time = None
         self._publish_grade()
 
+        self.has_saved_answers = False
         self.completed = False
 
         result = {
             'success': True,
             'problem_progress': self._get_problem_progress(),
+            'submit_feedback': self.submit_feedback_msg(),
+            'should_enable_submit_button': self.should_enable_submit_button(),
+            'should_show_answer_button': self.should_show_answer_button(),
+            'should_show_save_button': self.should_show_save_button(),
         }
         return result
 
@@ -287,27 +271,34 @@ class InlineDropdownXBlock(XBlock):
         '''
         Save studio edits
         '''
-        self.display_name = submissions['display_name']
-        try:
-            weight = int(submissions['weight'])
-        except ValueError:
-            weight = 0
-        if weight > 0:
-            self.weight = weight
-        xml_content = submissions['data']
-
-        try:
-            etree.parse(StringIO(xml_content))
-            self.question_string = xml_content
-        except etree.XMLSyntaxError as e:
-            return {
-                'result': 'error',
-                'message': e.message
-            }
+        for key, value in submissions.items():
+            if key=='question_string':
+                try:
+                    etree.parse(StringIO(value))
+                    setattr(self, key, value)
+                except etree.XMLSyntaxError as e:
+                    return {
+                        'result': 'error',
+                        'message': e.message
+                    }
+            elif key in ['weight',]:
+                try:
+                    setattr(self, key, int(value))
+                except ValueError:
+                    setattr(self, key, 0)
+            elif key in ['max_attempts']:
+                try:
+                    setattr(self, key, int(value))
+                except ValueError:
+                    if isinstance(value, unicode):
+                        setattr(self, key, value)
+            else:
+                setattr(self, key, value)
 
         return {
             'result': 'success',
         }
+
 
     @XBlock.json_handler
     def send_xblock_id(self, submissions, suffix=''):
@@ -321,10 +312,22 @@ class InlineDropdownXBlock(XBlock):
         return {
             'result': 'success',
             'selections': self.selections,
-            'correctness': self.student_correctness,
-            'selection_order': self.selection_order,
-            'current_feedback': self.current_feedback,
+            'correctness': self.student_correctness if self.correctness_available() else '',
+            'selection_order': self.selection_order if self.correctness_available() else '',
+            'current_feedback': self.current_feedback if self.correctness_available() else '',
             'completed': self.completed,
+            'saved' : self.has_saved_answers,
+        }
+
+    @XBlock.json_handler
+    def save_state(self, submissions, suffix=''):
+        _ = self.runtime.service(self, "i18n").ugettext
+        self.selections = submissions['responses']
+        self.selection_order = submissions['responses_order']
+        self.has_saved_answers = True
+        return {
+            'status': 'success',
+            'msg': _('Saved')
         }
 
     @XBlock.json_handler
@@ -353,40 +356,6 @@ class InlineDropdownXBlock(XBlock):
             'hints': hints,
         }
 
-    @XBlock.json_handler
-    def publish_event(self, data, suffix=''):
-        try:
-            event_type = data.pop('event_type')
-        except KeyError:
-            return {'result': 'error', 'message': 'Missing event_type in JSON data'}
-
-        data['user_id'] = self.scope_ids.user_id
-        data['component_id'] = self._get_unique_id()
-        self.runtime.publish(self, event_type, data)
-
-        return {'result': 'success'}
-
-    '''
-    Util functions
-    '''
-    def load_resource(self, resource_path):
-        '''
-        Gets the content of a resource
-        '''
-        resource_content = pkg_resources.resource_string(__name__, resource_path)
-        return unicode(resource_content)
-
-    def render_template(self, template_path, context={}):
-        '''
-        Evaluate a template by resource path, applying the provided context
-        '''
-        template_str = self.load_resource(template_path)
-        return Template(template_str).render(Context(context))
-
-    def resource_string(self, path):
-        '''Handy helper for getting resources from our kit.'''
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode('utf8')
 
     def _get_body(self, xmlstring):
         '''
@@ -421,78 +390,6 @@ class InlineDropdownXBlock(XBlock):
 
         return bodystring
 
-    def _get_unique_id(self):
-        try:
-        	unique_id = self.location.name
-        except AttributeError:
-            # workaround for xblock workbench
-            unique_id = 'workbench-workaround-id'
-        return unique_id
-
-    def _get_problem_progress(self):
-        """
-        Returns a statement of progress for the XBlock, which depends
-        on the user's current score
-        """
-        i18n_ = self.runtime.service(self, "i18n").ungettext
-        result = ''
-        if self.score == 0.0:
-            result = i18n_(
-                '{weight} point possible',
-                '{weight} points possible',
-                self.weight,
-            ).format(
-                weight=self.weight)
-        else:
-            score_string = '{0:g}'.format(self.score)
-            result = score_string + i18n_(
-                "/{weight} point",
-                "/{weight} points",
-                self.weight
-            ).format(
-                weight=self.weight)
-
-        return result
-
-    def _publish_grade(self):
-        self.runtime.publish(
-            self,
-            'grade',
-            {
-                'value': self.score,
-                'max_value': self.weight,
-            }
-        )
-
-    def _publish_problem_check(self):
-        self.runtime.publish(
-            self,
-            'problem_check',
-            {
-                'grade': self.score,
-                'max_grade': self.weight,
-            }
-        )
-
-    def get_translation_content(self):
-        try:
-            return self.resource_string('static/js/translations/{lang}/text.js'.format(
-                lang=translation.get_language(),
-            ))
-        except IOError:
-            return self.resource_string('static/js/translations/en/text.js')
-
-    def init_emulation(self):
-        """
-        Emulation of init function, for translation purpose.
-        """
-        if not self.skip_flag:
-            i18n_ = self.runtime.service(self, "i18n").ugettext
-            #     self.display_name = _(self.display_name)
-            self.fields['display_name']._default = i18n_(self.fields['display_name']._default)
-            self.fields['question_string']._default = i18n_(self.fields['question_string']._default)
-            self.skip_flag = True
-
     def shuffle_sequence(self, sequence):
         shuffled_sequence = [element for element in sequence]
         random.shuffle(shuffled_sequence)
@@ -514,29 +411,20 @@ class InlineDropdownXBlock(XBlock):
              """),
         ]
 
-    @staticmethod
-    def _get_statici18n_js_url():
-        """
-        Returns the Javascript translation file for the currently selected language, if any.
-        Defaults to English if available.
-        """
-        locale_code = translation.get_language()
-        if locale_code is None:
-            return None
-        text_js = 'public/js/translations/{locale_code}/text.js'
-        lang_code = locale_code.split('-')[0]
-        for code in (locale_code, lang_code, 'en'):
-            loader = ResourceLoader(__name__)
-            if pkg_resources.resource_exists(
-                    loader.module_name, text_js.format(locale_code=code)):
-                return text_js.format(locale_code=code)
-        return None
 
-    @staticmethod
-    def get_dummy():
-        """
-        Dummy method to generate initial i18n
-        """
-        return translation.gettext_noop('Dummy')
-
+    def submit_feeedback(self, status, extra_element):
+        result = {
+        'success': status,
+        'problem_progress': self._get_problem_progress(),
+        'submissions': self.selections,
+        'correctness': self.student_correctness if self.correctness_available() else '',
+        'selection_order': self.selection_order  if self.correctness_available() else '',
+        'submit_feedback': self.submit_feedback_msg(),
+        'should_enable_submit_button': self.should_enable_submit_button(),
+        'should_show_reset_button': self.should_show_reset_button(),
+        'should_show_answer_button': self.should_show_answer_button(),
+        'should_show_save_button': self.should_show_save_button(),
+        }
+        result.update(extra_element)
+        return result
 

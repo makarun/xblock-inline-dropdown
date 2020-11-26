@@ -1,7 +1,7 @@
 {% load i18n %}
-<div class="problems-wrapper inline_dropdown">
-	<h3 class='problem_header hd hd-3'>{{display_name}}</h3>
-	<div class='problem-progress'>({{problem_progress}})</div>
+<div class='problems-wrapper inline_dropdown'>
+	<h3 class='problem_header hd hd-3' id="{{element_id}}-problem-title">{{ display_name }}</h3>
+	<div class='problem-progress'>{{problem_progress}}</div>
 	<div class="problem">
 		<div>
 			<div class="wrapper-problem-response">
@@ -9,26 +9,41 @@
 			</div>
 		</div>
 		<div class='action'>
-			<div class='feedback' style='display:none'>{{feedback}}</div>
-			<div class='problem-hint hint' style='display:none'>{{hint}}</div>
-			<div class="submit-attempt-container" style='display:inline'>
-				<button
-				class='btn btn-primary btn-sm submit'
+			<div class="submit-attempt-container">
+				<button class="btn btn-primary btn-sm submit" {% if not should_enable_submit_button %} disabled="disabled" {% endif %}
 				type='button'><i class="fas fa-check"></i>{% trans 'Check' %}</button>
+
+				<div class="submission-feedback" id="submission_feedback_{{ element_id }}">
+						{{submit_feedback}}
+					<span class="sr">${_("Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.")}</span>
+				</div>
 			</div>
 			<div class="problem-action-buttons-wrapper float-left float-md-right">
 				<span class="problem-action-button-wrapper">
-					<div class='hint_button_holder' style='display:none'>
-						<button
-						class='btn btn-outline-primary btn-sm hint_button'
-						type='button'><i class="far fa-lightbulb" aria-hidden="true"></i>{% trans 'Hint' %}</button>
-					</div>
+					<button type="button" class="hint_button problem-action-btn btn btn-sm btn-outline-primary" data-value="{% trans 'Hint' %}">
+						<i class="far fa-lightbulb"></i>
+						<span>{% trans 'Hint' %}</span>
+						<span class="sr">{% trans "Show hint" %}</span>
+					</button>
 				</span>
-				<span class="problem-action-button-wrapper">
-					<button class='btn btn-outline-primary btn-sm reset_button'	type='button'><i class="icon fa fa-refresh" aria-hidden="true"></i>{% trans 'Reset' %}</button>
+				<span class="problem-action-button-wrapper {% if not should_show_save_button %} is-hidden {% endif %}">
+					<button type="button" class="save problem-action-btn btn btn-sm btn-outline-primary" data-value="{% trans 'Save' %}">
+						<i class="fa fa-save"></i>
+						<span>{% trans 'Save' %}</span>
+						<span class="sr">{% trans "Save your answer" %}</span>
+					</button>
+				</span>
+				<span class="problem-action-button-wrapper {% if not should_show_reset_button %} is-hidden {% endif %}">
+					<button class='btn btn-outline-primary btn-sm reset_button'	type='button'><i class="icon fa fa-refresh"></i>{% trans 'Reset' %}</button>
+				</span>
+				<span class="problem-action-button-wrapper {% if not should_show_answer_button %} is-hidden {% endif %}">
+					<button type="button" class="show problem-action-btn btn btn-sm btn-outline-primary" aria-describedby="{{ element_id }}-problem-title"><i class="fas fa-eye"></i><span class="show-label">{% trans 'Show Answer' %}</span></button>
 				</span>
 			</div>
 		</div>
-	</div>	
-</div>	
-
+		<div class="notification notification-submit is-hidden" tabindex="-1">
+			<span class="icon fa fa-close" aria-hidden="true"></span>
+			<span class="notification-message" aria-describedby={{element_id}}-problem-title></span>
+		</div>
+	</div>
+</div>
