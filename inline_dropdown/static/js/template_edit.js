@@ -4,6 +4,7 @@ const inlineDropdownFeedbackMessage = inline_dropdowni18n.gettext('Feedback');
 const inlineDropdownAddIncorrectResponseButtonName = inline_dropdowni18n.gettext('Add incorrect option');
 const inlineDropdownIncorrectResponsesLabel = inline_dropdowni18n.gettext('Incorrect options');
 const inlineDropdownTaggedWordLabel = inline_dropdowni18n.gettext('Correct option: ');
+const inlineDropdownDeleteButtonLabel = inline_dropdowni18n.gettext('Delete');
 var inlineDropdownQuestionBodyTemplate = `
 <div>
     <br>
@@ -27,7 +28,6 @@ var inlineDropdownQuestionBodyTemplate = `
     </div>
 </div>`;
 
-const inlineDropdownDeleteButtonLabel = inline_dropdowni18n.gettext('Delete');
 var inlineDropdownQuestionIncorrectTemplate = `
 <div class="inline-dropdown-question-bottom-secondary">
     <input class="label setting-label input_question_word" type="text" value="">

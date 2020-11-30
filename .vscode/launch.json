@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Django",
+            "type": "python",
+            "request": "launch",
+            "program": "/edx/app/edxapp/navoica-platform/manage.py",
+            "args": [
+                "cms",
+                "runserver",
+                "0.0.0.0:18010",
+                "--nostatic",
+                "--settings=devstack_docker",
+            ],
+            "django": true,
+            "console": "integratedTerminal"
+        }
+    ]
+}
