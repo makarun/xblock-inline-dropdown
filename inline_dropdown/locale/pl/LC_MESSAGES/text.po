@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# krystianlygas <krystian.lygas@gmail.com>, 2020
 # Emilia Dolega <emilia.dolega@opi.org.pl>, 2020
+# krystianlygas <krystian.lygas@gmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-29 11:39+0200\n"
+"POT-Creation-Date: 2020-11-26 17:46+0000\n"
 "PO-Revision-Date: 2020-05-29 09:11+0000\n"
-"Last-Translator: Emilia Dolega <emilia.dolega@opi.org.pl>, 2020\n"
+"Last-Translator: krystianlygas <krystian.lygas@gmail.com>, 2020\n"
 "Language-Team: Polish (https://www.transifex.com/navoica/teams/104253/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,27 +22,81 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: inline_dropdown.py:38 static/html/inline_dropdown_edit.html:7
+#: static/js/inline_dropdown_edit.js:18
+msgid "Editor"
+msgstr "Edytor"
+
+#: static/js/inline_dropdown_edit.js:19
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: static/js/inline_dropdown_edit.js:196
+msgid "A text which will appear after giving a correct response"
+msgstr "Tekst, który wyświetli się po udzieleniu poprawnej odpowiedzi"
+
+#: static/js/inline_dropdown_edit.js:309
+msgid "Incorrect response"
+msgstr "Odpowiedź niepoprawna"
+
+#: static/js/inline_dropdown_edit.js:310
+msgid "A text which will appear after giving a incorrect response"
+msgstr "Tekst, który wyświetli się po udzieleniu błędnej odpowiedzi"
+
+#: static/js/inline_dropdown_view.js:73 static/js/inline_dropdown_view.js:123
+msgid "You haven't completed the question."
+msgstr "Nie uzupełniono pytania."
+
+#: static/js/inline_dropdown_view.js:170
+msgid "(Loading...)"
+msgstr "(Wczytywanie...)"
+
+#: static/js/template_edit.js:2
+msgid ""
+"Beneath you have a list of words extracted from the square brackets []. You "
+"can add feedback message which will appear after giving the correct "
+"response. You should also add Incorrect responses."
+msgstr ""
+"Pod spodem znajduje się lista słów wyodrębnionych w ćwiczeniu nawiasami "
+"kwadratowymi []. Możesz tu dodać informację zwrotną, która pojawi się po "
+"udzieleniu poprawnej odpowiedzi. Należy również dodać warianty niepoprawne."
+
+#: static/js/template_edit.js:3
+msgid "Feedback"
+msgstr "Wiadomość zwrotna"
+
+#: static/js/template_edit.js:4
+msgid "Add incorrect option"
+msgstr "Dodaj odpowiedź niepoprawną"
+
+#: static/js/template_edit.js:5
+msgid "Incorrect options"
+msgstr "Odpowiedzi niepoprawne"
+
+#: static/js/template_edit.js:6
+msgid "Correct option: "
+msgstr "Poprawna odpowiedź: "
+
+#: static/js/template_edit.js:7
+msgid "Delete"
+msgstr "Usuń"
+
+#: inline_dropdown.py:36
 msgid "Display Name"
 msgstr "Nazwa"
 
-#: inline_dropdown.py:39
+#: inline_dropdown.py:37
 msgid "Inline Dropdown"
 msgstr "Zagnieżdżone z rozwijaną listą wyboru"
 
-#: inline_dropdown.py:41 static/html/inline_dropdown_edit.html:10
+#: inline_dropdown.py:39
 msgid "This name appears in the horizontal navigation at the top of the page"
 msgstr "Ta nazwa pojawia się w nawigacji na górze strony"
 
-#: inline_dropdown.py:47
-msgid "Hints for the question"
-msgstr "Podpowiedzi do pytania"
-
-#: inline_dropdown.py:51
+#: inline_dropdown.py:43
 msgid "Default question content "
 msgstr "Domyślna treść pytania"
 
-#: inline_dropdown.py:53
+#: inline_dropdown.py:45
 msgid ""
 "\n"
 "            <inline_dropdown schema_version='1'>\n"
@@ -75,14 +129,14 @@ msgstr ""
 "                </body>\n"
 "                <optionresponse>\n"
 "                    <optioninput id=\"i1\">\n"
-"                        <option correct=\"True\">pomidor<optionhint>W związku z tym, że pomidor powstaje z kwiata i zawiera nasiona jest owocem.</optionhint></option>\n"
+"                        <option correct=\"True\">pomidor<optionhint>W związku z tym, że pomidor powstaje z kwiatu i zawiera nasiona, jest owocem.</optionhint></option>\n"
 "                        <option correct=\"False\">ziemniak<optionhint>Ziemniak jest jadalną częścią rośliny w postaci bulwy i jest warzywem, nie owocem.</optionhint></option>\n"
 "                    </optioninput>\n"
 "                </optionresponse>\n"
 "                <optionresponse>\n"
 "                    <optioninput id=\"i2\">\n"
 "                        <option correct=\"True\">cebula<optionhint>Cebula wyrasta z cebulki, nie zawiera nasion więc jest warzywem. </optionhint></option>\n"
-"                        <option correct=\"False\">ogórek<optionhint>Wiele osób błędnie uważa ogórka za warzywo. Ze wzędu na to, że ogórek zawiera nasiona i powstaje z kwiatu jest owocem.</optionhint></option>\n"
+"                        <option correct=\"False\">ogórek<optionhint>Wiele osób błędnie uważa ogórka za warzywo. Ze względu na to, że ogórek zawiera nasiona i powstaje z kwiatu jest owocem.</optionhint></option>\n"
 "                    </optioninput>\n"
 "                </optionresponse>\n"
 "                <demandhint>\n"
@@ -92,86 +146,50 @@ msgstr ""
 "            </inline_dropdown>\n"
 "        "
 
-#: inline_dropdown.py:85
-msgid "Correctness of input values"
-msgstr "Poprawność wprowadzonych danych"
-
-#: inline_dropdown.py:91
+#: inline_dropdown.py:72
 msgid "Order of selections in body"
 msgstr "Kolejność opcji w treści"
 
-#: inline_dropdown.py:97
+#: inline_dropdown.py:78 utils/extensions.py:103
 msgid "Saved student input values"
 msgstr "Zapisane wartości wejściowe studenta"
 
-#: inline_dropdown.py:103
-msgid "Saved student correctness values"
-msgstr "Zapisane poprawne wyniki studenta"
+#: inline_dropdown.py:167
+msgid "Problem closed"
+msgstr "Ćwiczenie zostało zamknięte"
 
-#: inline_dropdown.py:109
-msgid "Feedback for input values"
-msgstr "Informacja zwrotna dla wartości wejściowych"
+#: inline_dropdown.py:174
+#, python-brace-format
+msgid ""
+"You must wait at least {wait_secs} between submissions. {remaining_secs} "
+"remaining."
+msgstr ""
+"Należy odczekać co najmniej {wait_secs} pomiędzy kolejnymi próbami. "
+"Pozostało {remaining_secs}."
 
-#: inline_dropdown.py:115
-msgid "Current feedback state"
-msgstr "Aktualny stan informacji zwrotnej"
+#: inline_dropdown.py:244
+msgid "You cannot select Reset for a problem that is closed."
+msgstr "Nie możesz zresetować ćwiczenia, które zostało zamknięte."
 
-#: inline_dropdown.py:121
-msgid "Indicates whether the learner has completed the problem at least once"
-msgstr "Wskazuje, czy student przynajmniej raz podszedł do ćwiczenia. "
+#: inline_dropdown.py:330
+msgid "Saved"
+msgstr "Zapisano"
 
-#: inline_dropdown.py:127 static/html/inline_dropdown_edit.html:14
-msgid "Weight"
-msgstr "Waga"
-
-#: inline_dropdown.py:129 static/html/inline_dropdown_edit.html:17
-msgid "This assigns an integer value representing the weight of this problem"
-msgstr "Przypisuje liczbę całkowitą reprezentującą wagę tego problemu"
-
-#: inline_dropdown.py:221 inline_dropdown.py:224
-msgid "Correct"
-msgstr "Poprawnie"
-
-#: inline_dropdown.py:232 inline_dropdown.py:235
-msgid "Incorrect"
-msgstr "Błędnie"
-
-#: inline_dropdown.py:338 inline_dropdown.py:342
-#: static/html/inline_dropdown_view.html:19
+#: inline_dropdown.py:342 inline_dropdown.py:346
+#: static/html/inline_dropdown_view.html:23
+#: static/html/inline_dropdown_view.html:25
 msgid "Hint"
 msgstr "Podpowiedź"
 
-#: inline_dropdown.py:440
-#, python-brace-format
-msgid "{weight} point possible"
-msgid_plural "{weight} points possible"
-msgstr[0] "{weight} możliwy punkt"
-msgstr[1] "{weight} możliwe punkty"
-msgstr[2] "{weight} możliwe punkty"
-msgstr[3] "{weight} możliwych punktów"
-
-#: inline_dropdown.py:449
-#, python-brace-format
-msgid "/{weight} point"
-msgid_plural "/{weight} points"
-msgstr[0] "/{weight} punkt"
-msgstr[1] "/{weight} punkty"
-msgstr[2] "/{weight} punkty"
-msgstr[3] "/{weight} punkty"
-
-#: inline_dropdown.py:531
-msgid "Dummy"
-msgstr "Lorem ipsum"
-
-#: static/html/inline_dropdown_edit.html:24
+#: static/html/inline_dropdown_edit.html:44
 msgid "Problem"
 msgstr "Ćwiczenie"
 
-#: static/html/inline_dropdown_edit.html:25
+#: static/html/inline_dropdown_edit.html:45
 msgid "Switch to XML editor view"
 msgstr "Przełącz widok do edytora XML"
 
-#: static/html/inline_dropdown_edit.html:27
+#: static/html/inline_dropdown_edit.html:47
 msgid ""
 "Enter a problem here. In square brackets [] enter the words, which will be "
 "changed into gaps."
@@ -179,94 +197,342 @@ msgstr ""
 "Tutaj wpisz treść zadania. W nawiasach kwadratowych [] wpisz słowa, które "
 "zmienią się w luki."
 
-#: static/html/inline_dropdown_edit.html:36
+#: static/html/inline_dropdown_edit.html:56
 msgid "Beneath there is a list of hints. You can modify, add and delete them."
 msgstr ""
 "Pod spodem znajduje się lista podpowiedzi. Możesz je modyfikować, dodawać i "
 "usuwać."
 
-#: static/html/inline_dropdown_edit.html:39
+#: static/html/inline_dropdown_edit.html:59
 msgid "Hints"
 msgstr "Podpowiedzi"
 
-#: static/html/inline_dropdown_edit.html:44
+#: static/html/inline_dropdown_edit.html:64
 msgid "Add a hint"
 msgstr "Dodaj podpowiedź"
 
-#: static/html/inline_dropdown_edit.html:54
+#: static/html/inline_dropdown_edit.html:74
 msgid "Definition"
 msgstr "Definicja"
 
-#: static/html/inline_dropdown_edit.html:55
+#: static/html/inline_dropdown_edit.html:75
 msgid "Switch to Visual editor view"
 msgstr "Przełącz widok do edytora Wizualnego"
 
-#: static/html/inline_dropdown_edit.html:57
+#: static/html/inline_dropdown_edit.html:77
 msgid "The XML definition for the problem"
 msgstr "XML definicja problemu"
 
-#: static/html/inline_dropdown_edit.html:72
+#: static/html/inline_dropdown_edit.html:93
+#: static/html/inline_dropdown_view.html:30
+#: static/html/inline_dropdown_view.html:32
 msgid "Save"
 msgstr "Zapisz"
 
-#: static/html/inline_dropdown_edit.html:75
+#: static/html/inline_dropdown_edit.html:96
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: static/html/inline_dropdown_view.html:13
+#: static/html/inline_dropdown_view.html:14
 msgid "Check"
 msgstr "Prześlij"
 
-#: static/html/inline_dropdown_view.html:25
+#: static/html/inline_dropdown_view.html:26
+msgid "Show hint"
+msgstr "Pokaż podpowiedź"
+
+#: static/html/inline_dropdown_view.html:33
+msgid "Save your answer"
+msgstr "Zapisz odpowiedź"
+
+#: static/html/inline_dropdown_view.html:37
 msgid "Reset"
 msgstr "Zresetuj"
 
-#: static/js/inline_dropdown_edit.js:174
-msgid "A text which will appear after giving a correct response"
-msgstr "Tekst, który wyświetli się po udzieleniu poprawnej odpowiedzi"
+#: static/html/inline_dropdown_view.html:40 utils/extensions.py:150
+msgid "Show Answer"
+msgstr "Pokaż odpowiedź"
 
-#: static/js/inline_dropdown_edit.js:269
-msgid "Incorrect response"
-msgstr "Odpowiedź niepoprawna"
+#: utils/extensions.py:73
+msgid "True"
+msgstr "Tak"
 
-#: static/js/inline_dropdown_edit.js:270
-msgid "A text which will appear after giving a incorrect response"
-msgstr "Tekst, który wyświetli się po udzieleniu błędnej odpowiedzi"
+#: utils/extensions.py:73
+msgid "False"
+msgstr "Nie"
 
-#: static/js/inline_dropdown_view.js:54
-msgid "(Loading...)"
-msgstr "(Wczytywanie...)"
+#: utils/extensions.py:82
+msgid "Hints for the question"
+msgstr "Podpowiedzi do pytania"
 
-#: static/js/inline_dropdown_view.js:179
-msgid "You haven't completed the question."
-msgstr "Nie uzupełniono pytania."
+#: utils/extensions.py:91
+msgid "Correctness of input values"
+msgstr "Poprawność wprowadzonych danych"
 
-#: static/js/template_edit.js:2
+#: utils/extensions.py:97
+msgid "Order of input_texts in body"
+msgstr "Kolejność opcji w treści"
+
+#: utils/extensions.py:109
+msgid "Saved student correctness values"
+msgstr "Zapisane poprawne wyniki studenta"
+
+#: utils/extensions.py:115
+msgid "Feedback for input values"
+msgstr "Informacja zwrotna dla wartości wejściowych"
+
+#: utils/extensions.py:121
+msgid "Current feedback state"
+msgstr "Aktualny stan informacji zwrotnej"
+
+#: utils/extensions.py:127
+msgid "Indicates whether the learner has completed the problem at least once"
+msgstr "Wskazuje, czy student przynajmniej raz podszedł do ćwiczenia. "
+
+#: utils/extensions.py:133
+msgid "Weight"
+msgstr "Waga"
+
+#: utils/extensions.py:135
+msgid "This assigns an integer value representing the weight of this problem"
+msgstr "Przypisuje liczbę całkowitą reprezentującą wagę tego problemu"
+
+#: utils/extensions.py:143
+msgid "Force Save Button"
+msgstr "Wymuszenie przycisku zapisu"
+
+#: utils/extensions.py:144
+msgid "Whether to force the save button to appear on the page"
+msgstr "Czy wyświetlać przycisk zapisu stanu na tej stronie"
+
+#: utils/extensions.py:151
 msgid ""
-"Beneath you have a list of words extracted from the square brackets []. You "
-"can add feedback message which will appear after giving the correct "
-"response. You should also add Incorrect responses."
+"Defines when to show the answer to the problem. A default value can be set "
+"in Advanced Settings."
 msgstr ""
-"Pod spodem znajduje się lista słów wyodrębnionych w ćwiczeniu nawiasami "
-"kwadratowymi []. Możesz tu dodać informację zwrotną, która pojawi się po "
-"udzieleniu poprawnej odpowiedzi. Należy również dodać warianty niepoprawne."
+"Określ, kiedy wyświetlić odpowiedź na ćwiczenie. Można wskazać domyślną "
+"wartość w ustawieniach zaawansowanych."
 
-#: static/js/template_edit.js:3
-msgid "Feedback"
-msgstr "Wiadomość zwrotna"
+#: utils/extensions.py:156
+msgid "Always"
+msgstr "Zawsze"
 
-#: static/js/template_edit.js:4
-msgid "Add incorrect option"
-msgstr "Dodaj odpowiedź niepoprawną"
+#: utils/extensions.py:157
+msgid "Answered"
+msgstr "Odpowiedziano"
 
-#: static/js/template_edit.js:5
-msgid "Incorrect options"
-msgstr "Odpowiedzi niepoprawne"
+#: utils/extensions.py:158
+msgid "Attempted"
+msgstr "Podjęto próbę"
 
-#: static/js/template_edit.js:6
-msgid "Correct option: "
-msgstr "Poprawna odpowiedź: "
+#: utils/extensions.py:159
+msgid "Closed"
+msgstr "Zamknięte"
 
-#: static/js/template_edit.js:30
-msgid "Delete"
-msgstr "Usuń"
+#: utils/extensions.py:160
+msgid "Finished"
+msgstr "Ukończone"
+
+#: utils/extensions.py:161
+msgid "Correct or Past Due"
+msgstr "Prawidłowo lub po terminie"
+
+#: utils/extensions.py:162
+msgid "Past Due"
+msgstr "Po terminie"
+
+#: utils/extensions.py:163
+msgid "Never"
+msgstr "Nigdy"
+
+#: utils/extensions.py:167
+msgid ""
+"Determines whether a 'Reset' button is shown so the user may reset their "
+"answer. A default value can be set in Advanced Settings."
+msgstr ""
+"Określ, kiedy wyświetlić odpowiedź na ćwiczenie. Można wskazać domyślną "
+"wartość w ustawieniach zaawansowanych."
+
+#: utils/extensions.py:171
+msgid "Show Reset Button"
+msgstr "Wyświetl przycisk resetu"
+
+#: utils/extensions.py:174
+msgid "Last submission time"
+msgstr "Data ostatniego zgłoszenia"
+
+#: utils/extensions.py:176
+msgid "Timer Between Attempts"
+msgstr "Czas pomiędzy próbami"
+
+#: utils/extensions.py:177
+msgid ""
+"Seconds a student must wait between submissions for a problem with multiple "
+"attempts."
+msgstr ""
+"Liczba sekund, którą student musi odczekać pomiędzy kolejnymi próbami w "
+"ćwiczeniach pozwalających na wiele podejść."
+
+#: utils/extensions.py:182
+msgid "Number of attempts taken by the student on this problem"
+msgstr "Liczba prób podjętych przez studenta w celu rozwiązania ćwiczenia"
+
+#: utils/extensions.py:188
+msgid "Maximum Attempts"
+msgstr "Maksymalna liczba prób"
+
+#: utils/extensions.py:189
+msgid ""
+"Defines the number of times a student can try to answer this problem. If the"
+" value is not set, infinite attempts are allowed."
+msgstr ""
+"Pozwala określić liczbę prób jaką student może podjąć w celu wykonania "
+"ćwiczenia. W przypadku niewpisania wartości, dopuszcza się nielimitowaną "
+"liczbę prób."
+
+#: utils/extensions.py:193
+msgid "Whether or not the answers have been saved since last submit"
+msgstr "Czy odpowiedzi zostały zapisane po ostatnim zgłoszeniu"
+
+#. Translators: Separator used in NumericalResponse to display multiple
+#. answers.
+#: utils/extensions.py:220
+msgid "or"
+msgstr "lub"
+
+#: utils/extensions.py:225
+msgid "Correct answers"
+msgstr "Prawidłowe odpowiedzi"
+
+#: utils/extensions.py:225
+msgid "Correct answer"
+msgstr "Prawidłowa odpowiedź"
+
+#: utils/extensions.py:271
+#, python-brace-format
+msgid "You have used {num_used} of {num_total} attempt"
+msgid_plural "You have used {num_used} of {num_total} attempts"
+msgstr[0] "Wykorzystano {num_used} spośród {num_total} możliwej próby"
+msgstr[1] "Wykorzystano {num_used} spośród {num_total} możliwych prób"
+msgstr[2] "Wykorzystano {num_used} spośród {num_total} możliwych prób"
+msgstr[3] "Wykorzystano {num_used} spośród {num_total} możliwych prób"
+
+#: utils/extensions.py:286
+#, python-brace-format
+msgid "{num_hour} hour"
+msgid_plural "{num_hour} hours"
+msgstr[0] "{num_hour} godzina"
+msgstr[1] "{num_hour} godziny"
+msgstr[2] "{num_hour} godzin"
+msgstr[3] "{num_hour} godzin"
+
+#: utils/extensions.py:291
+#, python-brace-format
+msgid "{num_minute} minute"
+msgid_plural "{num_minute} minutes"
+msgstr[0] "{num_minute} minuta"
+msgstr[1] "{num_minute} minuty"
+msgstr[2] "{num_minute} minut"
+msgstr[3] "{num_minute} minut"
+
+#: utils/extensions.py:297
+#, python-brace-format
+msgid "{num_second} second"
+msgid_plural "{num_second} seconds"
+msgstr[0] "{num_second} sekunda"
+msgstr[1] "{num_second} sekundy"
+msgstr[2] "{num_second} sekund"
+msgstr[3] "{num_second} sekund"
+
+#: utils/extensions.py:360
+#, python-brace-format
+msgid "{weight} point possible (graded, results hidden)"
+msgid_plural "{weight} points possible (graded, results hidden)"
+msgstr[0] "{weight} możliwy punkt (klasyfikowany, wynik ukryty)"
+msgstr[1] "{weight} możliwe punkty (klasyfikowane, wynik ukryty)"
+msgstr[2] "{weight} możliwych punktów (klasyfikowanych, wynik ukryty)"
+msgstr[3] "{weight} możliwych punktów (klasyfikowanych, wynik ukryty)"
+
+#: utils/extensions.py:365
+#, python-brace-format
+msgid "{weight} point possible (ungraded, results hidden)"
+msgid_plural "{weight} points possible (ungraded, results hidden)"
+msgstr[0] "{weight} możliwy punkt (nieklasyfikowany, wynik ukryty)"
+msgstr[1] "{weight} możliwe punkty (nieklasyfikowane, wynik ukryty)"
+msgstr[2] "{weight} możliwych punktów (nieklasyfikowanych, wynik ukryty)"
+msgstr[3] "{weight} możliwych punktów (nieklasyfikowanych, wynik ukryty)"
+
+#: utils/extensions.py:373
+#, python-brace-format
+msgid "{weight} point possible (graded)"
+msgid_plural "{weight} points possible (graded)"
+msgstr[0] "{weight} możliwy punkt (klasyfikowany)"
+msgstr[1] "{weight} możliwe punkty (klasyfikowane)"
+msgstr[2] "{weight} możliwych punktów (klasyfikowanych)"
+msgstr[3] "{weight} możliwych punktów (klasyfikowanych)"
+
+#: utils/extensions.py:378
+#, python-brace-format
+msgid "{weight} point possible (ungraded)"
+msgid_plural "{weight} points possible (ungraded)"
+msgstr[0] "{weight} możliwy punkt (nieklasyfikowany)"
+msgstr[1] "{weight} możliwe punkty (nieklasyfikowane)"
+msgstr[2] "{weight} możliwych punktów (nieklasyfikowanych)"
+msgstr[3] "{weight} możliwych punktów (nieklasyfikowanych)"
+
+#: utils/extensions.py:385
+#, python-brace-format
+msgid "/{weight} point (graded)"
+msgid_plural "/{weight} points (graded)"
+msgstr[0] "/{weight} punkt (klasyfikowany)"
+msgstr[1] "/{weight} punkty (klasyfikowane)"
+msgstr[2] "/{weight} punktów (klasyfikowanych)"
+msgstr[3] "/{weight} punktów (klasyfikowanych)"
+
+#: utils/extensions.py:390
+#, python-brace-format
+msgid "/{weight} point (ungraded)"
+msgid_plural "/{weight} points (ungraded)"
+msgstr[0] "/{weight} punkt (nieklasyfikowany)"
+msgstr[1] "/{weight} punkty (nieklasyfikowane)"
+msgstr[2] "/{weight} punktów (nieklasyfikowanych)"
+msgstr[3] "/{weight} punktów (nieklasyfikowanych)"
+
+#: utils/extensions.py:412
+msgid "Answer submitted."
+msgstr "Odpowiedź przesłana"
+
+#: utils/extensions.py:416
+msgid "Incorrect."
+msgstr "Błędnie"
+
+#: utils/extensions.py:418
+#, python-brace-format
+msgid "Incorrect ({progress} point)."
+msgid_plural "Incorrect ({progress} points)."
+msgstr[0] "Błędnie ({progress} punkt)."
+msgstr[1] "Błędnie ({progress} punkty)."
+msgstr[2] "Błędnie ({progress} punktów)."
+msgstr[3] "Błędnie ({progress} punktów)."
+
+#: utils/extensions.py:425
+#, python-brace-format
+msgid "Partially correct ({progress} point)."
+msgid_plural "Partially correct ({progress} points)."
+msgstr[0] "Częściowo poprawnie ({progress} punkt)."
+msgstr[1] "Częściowo poprawnie ({progress} punkty)."
+msgstr[2] "Częściowo poprawnie ({progress} punktów)."
+msgstr[3] "Częściowo poprawnie ({progress} punktów)."
+
+#: utils/extensions.py:432
+#, python-brace-format
+msgid "Correct ({progress} point)."
+msgid_plural "Correct ({progress} points)."
+msgstr[0] "Poprawnie ({progress} punkt)."
+msgstr[1] "Poprawnie ({progress} punkty)."
+msgstr[2] "Poprawnie ({progress} punktów)."
+msgstr[3] "Poprawnie ({progress} punktów)."
+
+#: utils/extensions.py:612
+msgid "Dummy"
+msgstr "Lorem ipsum"

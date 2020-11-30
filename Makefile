@@ -28,12 +28,11 @@ dev.run: dev.clean dev.build ## Clean, build and run test image
 
 extract_translations: symlink_translations ## extract strings to be translated, outputting .po files
 	cd $(PACKAGE_NAME) && i18n_tool extract
-	mv $(EXTRACTED_DJANGO) $(EXTRACTED_TEXT)
-	if [ -f "$(EXTRACTED_DJANGOJS)" ]; then cat $(EXTRACTED_DJANGOJS) >> $(EXTRACTED_TEXT); rm $(EXTRACTED_DJANGOJS); fi
+	if [ -f "$(EXTRACTED_DJANGOJS)" ]; then msgcat $(EXTRACTED_DJANGOJS) $(EXTRACTED_DJANGO) -o $(EXTRACTED_TEXT)  ; rm $(EXTRACTED_DJANGOJS) $(EXTRACTED_DJANGO); else mv $(EXTRACTED_DJANGO) $(EXTRACTED_TEXT)  ; fi
 
 compile_translations: symlink_translations ## compile translation files, outputting .mo files for each supported language
 	cd $(PACKAGE_NAME) && i18n_tool generate
-	python manage.py compilejsi18n --namespace $(PACKAGE_NAME)i18n --output $(JS_TARGET)
+	python manage.py compilejsi18n -n $(PACKAGE_NAME)i18n --output $(JS_TARGET)
 
 detect_changed_source_translations:
 	cd $(PACKAGE_NAME) && i18n_tool changed

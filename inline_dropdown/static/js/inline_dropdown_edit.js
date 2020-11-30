@@ -1,15 +1,26 @@
 /* Javascript for Embedded Dropdown XBlock. */
-function InlineDropdownXBlockInitEdit(runtime, element) {
+function InlineDropdownXBlockInitEdit(runtime, element, data) {
     const self = this;
-
+    this.settings_fields = data.settings_fields;
     // init function, assigns the DOM elements to this.variables
     this.init = () => {
       this.initSelectors();
+      this.initHeaderButtons();
       this.getTemplates();
       this.initEvents();
       this.getOriginalModalEditorHeight();
-      this.changeModalEditorHeight();
+      this.changeModalEditorHeight(0.75);
       this.initXMLEditor();
+      this.initViews();
+    };
+
+    this.initHeaderButtons = () => {
+      const tempStringOne = inline_dropdowni18n.gettext('Editor');
+      const tempStringTwo = inline_dropdowni18n.gettext('Settings');
+      this.headerSelector.append(`<li class="action-item" data-mode="editor"><a href="#" class="editor-button is-set">${tempStringOne}</a></li>`);
+      this.headerSelector.append(`<li class="action-item" data-mode="settings"><a href="#" class="settings-button">${tempStringTwo}</a></li>`);
+      this.settingsButton = $('.settings-button');
+      this.editorButton = $('.editor-button');
     };
 
     this.initSelectors = () => {
@@ -29,7 +40,16 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
       this.actionCancelButton = $('.action-cancel', element);
       this.actionSaveButton = $('.action-save', element);
       this.demandHintsContainer = $('.inline-dropdown-demandhints', element);
+      this.headerSelector = $('.modal-header .editor-modes');
+      this.editorContainer= $('.inline-dropdown-visual-editor');
+      this.settingsContainer = $('.inline-dropdown-main-settings');
     };
+
+    this.initViews = () => {
+      this.settingsContainer.addClass('is-hidden');
+
+      // this.editorContainer
+    }
 
     this.getTemplates = () => {
       // this elements: questionBodyTemplate, questionIncorrectTemplate, demandHintTemplate are previously imported in inline_dropdown.py. there are assigns to this.variables
@@ -57,6 +77,9 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
 
       this.actionCancelButton.bind('click', this.onCancel);
       this.actionSaveButton.bind('click', this.onSubmit);
+
+      this.settingsButton.bind('click', this.settingsView);
+      this.editorButton.bind('click', this.editorView);
     };
 
     this.getOriginalModalEditorHeight = () => {
@@ -65,9 +88,9 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
       this.originalEditorHeight = this.defaultEditorSelector.outerHeight();
     };
 
-    this.changeModalEditorHeight = () => {
+    this.changeModalEditorHeight = (height) => {
       // changing height of modal window to 75 perecent of
-      this.modalContentHeight = 0.75; // 75 percent of browser height;
+      this.modalContentHeight = height; // 75 percent of browser height;
       this.defaultModalContentSelector.outerHeight($(window).height() * this.modalContentHeight);
       this.defaultEditorSelector.outerHeight(this.defaultModalContentSelector.height() - this.defaultActionsSelector.outerHeight(true) - 2);
       this.bodySelector.scrollTop($(document).height());
@@ -171,7 +194,7 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
           });
         } else {
           const feedbackMessage = inline_dropdowni18n.gettext('A text which will appear after giving a correct response');
-          const xmlTemplate = inline_dropdowni18n.gettext(`<optionresponse><optioninput id="${elementIndex}"><option correct="True">${regexMatches[inputRefIndex]}<optionhint>${feedbackMessage}</optionhint></option></optioninput></optionresponse>`);
+          const xmlTemplate = `<optionresponse><optioninput id="${elementIndex}"><option correct="True">${regexMatches[inputRefIndex]}<optionhint>${feedbackMessage}</optionhint></option></optioninput></optionresponse>`;
           if (self.$xml.find('optionresponse').length) {
             self.$xml.find('optionresponse').last().after(xmlTemplate);
           } else {
@@ -232,6 +255,18 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
       self.refreshView();
     };
 
+    this.editorView = () => {
+      this.settingsContainer.addClass('is-hidden');
+      this.editorContainer.removeClass('is-hidden');
+      this.changeModalEditorHeight(0.75);
+    };
+
+    this.settingsView = () => {
+      this.settingsContainer.removeClass('is-hidden');
+      this.editorContainer.addClass('is-hidden');
+      this.changeModalEditorHeight(0.55);
+    };
+
     this.getXmlString = (xmlData)=> {
       let xmlString;
       // IE
@@ -273,7 +308,7 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
         .attr('option_id');
       const tempStringOne = inline_dropdowni18n.gettext('Incorrect response');
       const tempStringTwo = inline_dropdowni18n.gettext('A text which will appear after giving a incorrect response');
-      const xmlTemporaryTemplate = inline_dropdowni18n.gettext(`<option correct="False">${tempStringOne}<optionhint>${tempStringTwo}</optionhint></option>`);
+      const xmlTemporaryTemplate = `<option correct="False">${tempStringOne}<optionhint>${tempStringTwo}</optionhint></option>`;
       self.$xml.find(`#${elementId}`).append(xmlTemporaryTemplate);
       self.updateXmlEditor(self.$xml.get(0));
     };
@@ -283,7 +318,7 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
         .parent()
         .attr('option_id');
       const parentElementIndex = $(this).parent().index() + 1;
-      const inputValue = $(this).val();
+      const inputValue = $(this).val().trim();
       self.$xml.find(`optioninput#${elementId}`).find('option').eq(parentElementIndex).html((id, currentContent) => {
         const regex = /\<optionhint\>(.*?)\<\/optionhint\>/g;
         const wordToChange = currentContent.replace(regex, '');
@@ -339,11 +374,13 @@ function InlineDropdownXBlockInitEdit(runtime, element) {
     };
 
     this.onSubmit = function () {
-      const data = {
-        display_name: $('#inline_dropdown_edit_display_name').val(),
-        weight: $('#inline_dropdown_edit_weight').val(),
-        data: self.xmlEditor.getValue(),
+
+      var data = {
+        question_string: self.xmlEditor.getValue(),
       };
+      for (i in self.settings_fields){
+        data[self.settings_fields[i]]=$(`#inline_dropdown_edit_${self.settings_fields[i]}`).val();
+      }
 
       runtime.notify('save', {
         state: 'start',

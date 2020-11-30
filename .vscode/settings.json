@@ -1,0 +1,11 @@
+{
+    "python.pythonPath": "/edx/app/edxapp/venvs/edxapp/bin/python",
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.root": "../../../../../../var/edxapp/staticfiles",
+    "liveServer.settings.proxy": {
+        "enable": true, //set it true to enable the feature.
+        "baseUri": "/static", //from where you want to proxy.
+        "proxyUri": "http://localhost:5500/" //the actual url.
+    },
+    // "liveServer.settings.useWebExt": true,
+}
