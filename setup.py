@@ -22,7 +22,7 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-inline-dropdown',
-    version='0.2',
+    version='0.3',
     description='Inline Dropdown Problem XBlock',   # TODO: write a better description.
     license='AGPL v3',
     packages=[
