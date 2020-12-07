@@ -1,10 +1,12 @@
 """ Embedded Responses XBlock main Python class """
 
+from django.template.base import Origin
 import pkg_resources
 from django.template import Context, Template
 from django.utils import translation
 import datetime
 from pytz import utc
+import re
 
 from xblock.core import XBlock
 from xblock.fields import Scope, String, List, Float, Integer, Dict, Boolean, DateTime, Sentinel
@@ -231,7 +233,8 @@ class XBlockCapaMixin(XBlock):
         main += '</br>'
 
         i = 1
-        for key, value in sorted(self.correctness.items(), key=lambda x: x[0]):
+
+        for key, value in sorted(self.correctness.items(), key=lambda x: int(re.search(r'\d+', x[0]).group())):
             correctness_list = value.items()
             for element in correctness_list:
                 if element[1]=="True":
@@ -329,7 +332,7 @@ class XBlockCapaMixin(XBlock):
         # then we disable the "submit" button
         # Also, disable the "submit" button if we're waiting
         # for the user to reset a randomized problem
-        if self.closed():
+        if self.closed() or self.is_correct():
             return False
         else:
             return True
@@ -340,8 +343,8 @@ class XBlockCapaMixin(XBlock):
         """
         is_survey_question = (self.max_attempts == 0)
 
-        if self.runtime.user_is_staff:
-            return True
+        # if self.runtime.user_is_staff:
+        #     return True
         # If the problem is closed (and not a survey question with max_attempts==0),
         # then do NOT show the reset button.
         if self.closed() and not is_survey_question:
@@ -502,7 +505,8 @@ class XBlockCapaMixin(XBlock):
             return not self.closed()
         else:
             is_survey_question = (self.max_attempts == 0)
-
+            if self.is_correct():
+                return False
             # If the student has unlimited attempts, and their answers
             # are not randomized, then we do not need a save button
             # because they can use the "Check" button without consequences.
@@ -515,7 +519,7 @@ class XBlockCapaMixin(XBlock):
             # In those cases. the if statement below is false,
             # and the save button can still be displayed.
             #
-            if self.max_attempts is None:
+            elif self.max_attempts is None:
                 return False
 
             # If the problem is closed (and not a survey question with max_attempts==0),
