@@ -175,7 +175,6 @@ function InlineDropdownXBlockInitView(runtime, element) {
 
 	this.postSubmit = (result) => {
         this.resetAllMessages()
-        debugger;
         this.updateButtonsVisibility(result);
         this.problemProgressContainer.text(result.problem_progress);
         this.restoreSelections(result.submissions);
@@ -241,12 +240,14 @@ function InlineDropdownXBlockInitView(runtime, element) {
 	}
 
     this.restoreSelections = (selections) => {
-        this.questionPromptContainer.find("select").each(function() {
-            if (this.getAttribute('xblock_id') == self.xblock_id) {
-                // reset the select value to what the student submitted
-                this.value = selections[this.getAttribute('input')];
-            }
-        });
+        if (Object.keys(selections).length){
+            this.questionPromptContainer.find("select").each(function() {
+                if (this.getAttribute('xblock_id') == self.xblock_id) {
+                    // reset the select value to what the student submitted
+                    this.value = selections[this.getAttribute('input')];
+                }
+            });
+        }
     }
 
 	this.restoreState = (result) => {
@@ -266,22 +267,24 @@ function InlineDropdownXBlockInitView(runtime, element) {
     }
 
 	this.addDecorations = (correctness, selection_order) => {
-        this.questionPromptContainer.find("select").each(function() {
-            if (this.getAttribute('xblock_id') == self.xblock_id) {
+        if (Object.keys(correctness).length && Object.keys(selection_order).length){
+            this.questionPromptContainer.find("select").each(function() {
+                if (this.getAttribute('xblock_id') == self.xblock_id) {
 
-                var decoration_number = selection_order[this.getAttribute('input')];
-                if (decoration_number !== undefined){
-                    // add new decoration to the select
-                    if (correctness[this.getAttribute('input')] == 'True') {
-                        $('<span class="inline_dropdown feedback_number_correct">(' + decoration_number + ')</span>').insertAfter(this);
-                        $('<span class="fa fa-check status correct mx-1"/>').insertAfter(this);
-                    } else {
-                        $('<span class="inline_dropdown feedback_number_incorrect">(' + decoration_number + ')</span>').insertAfter(this);
-                        $('<span class="fa fa-times status incorrect mx-1"/>').insertAfter(this);
+                    var decoration_number = selection_order[this.getAttribute('input')];
+                    if (decoration_number !== undefined){
+                        // add new decoration to the select
+                        if (correctness[this.getAttribute('input')] == 'True') {
+                            $('<span class="inline_dropdown feedback_number_correct">(' + decoration_number + ')</span>').insertAfter(this);
+                            $('<span class="fa fa-check status correct mx-1"/>').insertAfter(this);
+                        } else {
+                            $('<span class="inline_dropdown feedback_number_incorrect">(' + decoration_number + ')</span>').insertAfter(this);
+                            $('<span class="fa fa-times status incorrect mx-1"/>').insertAfter(this);
+                        }
                     }
                 }
-        	}
-        });
+            });
+        }
     }
 
     this.resetCorrectAnswers = () => {
