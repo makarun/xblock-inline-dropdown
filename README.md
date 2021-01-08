@@ -1,6 +1,6 @@
 Inline Dropdown XBlock
 =========================
-This XBlock provides a way to place dropdown questions inline with other text, for example, in a paragraph.  
+This XBlock provides a way to place dropdown questions inline with other text, for example, in a paragraph.
 
 ![Completed Question](docs/img/submitted.png)
 
@@ -103,7 +103,7 @@ The general steps to provide multilingual messages for a Python program (or an X
 Mark translatable strings in python::
 
 
-    from django.utils.translation import ugettext as _
+    from django.utils.translation import gettext as _
 
     # Translators: This comment will appear in the `.po` file.
     message = _("This will be marked.")
@@ -213,5 +213,5 @@ If there are any errors compiling ``.po`` files run the following command to val
     $ make validate
 
 See `django's i18n troubleshooting documentation
-<https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#troubleshooting-ugettext-incorrectly-detects-python-format-in-strings-with-percent-signs>`_
+<https://docs.djangoproject.com/en/1.11/topics/i18n/translation/#troubleshooting-gettext-incorrectly-detects-python-format-in-strings-with-percent-signs>`_
 for more information.

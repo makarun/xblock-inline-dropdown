@@ -12,7 +12,7 @@ from xblock.fields import Scope, String, List, Float, Integer, Dict, Boolean, Da
 from xblockutils.resources import ResourceLoader
 
 from lxml import etree
-from StringIO import StringIO
+from six import StringIO, text_type
 
 UNSET = Sentinel("fields.UNSET")
 _ = lambda text: text
@@ -214,7 +214,7 @@ class XBlockCapaMixin(XBlock):
     @XBlock.json_handler
     def get_answer(self, data, suffix=''):
 
-        _ = self.runtime.service(self, "i18n").ugettext
+        _ = self.runtime.service(self, "i18n").gettext
         if not self.should_show_answer_button():
             msg = _(u'Problem closed')
             return {'result': 'error',
@@ -250,7 +250,7 @@ class XBlockCapaMixin(XBlock):
         Gets the content of a resource
         '''
         resource_content = pkg_resources.resource_string(__name__, resource_path)
-        return unicode(resource_content)
+        return text_type(resource_content)
 
     def render_template(self, template_path, context={}):
         '''
@@ -274,35 +274,38 @@ class XBlockCapaMixin(XBlock):
 
     def submit_feedback_msg(self):
         submit_feedback = ''
-        if self.max_attempts > 0:
-            ungettext = self.runtime.service(self, "i18n").ungettext
-            submit_feedback = ungettext("You have used {num_used} of {num_total} attempt", "You have used {num_used} of {num_total} attempts", self.max_attempts).format(num_used=self.attempts, num_total=self.max_attempts)
-        return submit_feedback
+        if self.max_attempts is not None:
+            if self.max_attempts > 0:
+                ngettext = self.runtime.service(self, "i18n").ngettext
+                submit_feedback = ngettext("You have used {num_used} of {num_total} attempt", "You have used {num_used} of {num_total} attempts", self.max_attempts).format(num_used=self.attempts, num_total=self.max_attempts)
+            return submit_feedback
+        else:
+            return ''
 
     def pretty_print_seconds(self, num_seconds):
         """
         Returns time duration nicely formated, e.g. "3 minutes 4 seconds"
         """
-        # Here _ is the N variant ungettext that does pluralization with a 3-arg call
-        ungettext = self.runtime.service(self, "i18n").ungettext
+        # Here _ is the N variant ngettext that does pluralization with a 3-arg call
+        ngettext = self.runtime.service(self, "i18n").ngettext
         hours = num_seconds // 3600
         sub_hour = num_seconds % 3600
         minutes = sub_hour // 60
         seconds = sub_hour % 60
         display = ""
         if hours > 0:
-            display += ungettext("{num_hour} hour", "{num_hour} hours", hours).format(num_hour=hours)
+            display += ngettext("{num_hour} hour", "{num_hour} hours", hours).format(num_hour=hours)
         if minutes > 0:
             if display != "":
                 display += " "
             # translators: "minute" refers to a minute of time
-            display += ungettext("{num_minute} minute", "{num_minute} minutes", minutes).format(num_minute=minutes)
+            display += ngettext("{num_minute} minute", "{num_minute} minutes", minutes).format(num_minute=minutes)
         # Taking care to make "0 seconds" instead of "" for 0 time
         if seconds > 0 or (hours == 0 and minutes == 0):
             if display != "":
                 display += " "
             # translators: "second" refers to a second of time
-            display += ungettext("{num_second} second", "{num_second} seconds", seconds).format(num_second=seconds)
+            display += ngettext("{num_second} second", "{num_second} seconds", seconds).format(num_second=seconds)
         return display
 
     def set_last_submission_time(self):
@@ -360,16 +363,16 @@ class XBlockCapaMixin(XBlock):
         Returns a statement of progress for the XBlock, which depends
         on the user's current score
         """
-        ungettext = self.runtime.service(self, "i18n").ungettext
+        ngettext = self.runtime.service(self, "i18n").ngettext
 
         if not self.correctness_available():
             if self.graded:
-                return ungettext(
+                return ngettext(
                             '{weight} point possible (graded, results hidden)',
                             '{weight} points possible (graded, results hidden)',
                             self.weight).format(weight=self.weight)
             elif not self.graded:
-                return ungettext(
+                return ngettext(
                             '{weight} point possible (ungraded, results hidden)',
                             '{weight} points possible (ungraded, results hidden)',
                             self.weight).format(weight=self.weight)
@@ -377,24 +380,24 @@ class XBlockCapaMixin(XBlock):
         else:
             if self.attempts == 0:
                 if self.graded:
-                    return ungettext(
+                    return ngettext(
                                 '{weight} point possible (graded)',
                                 '{weight} points possible (graded)',
                                 self.weight).format(weight=self.weight)
                 elif not self.graded:
-                    return ungettext(
+                    return ngettext(
                                 '{weight} point possible (ungraded)',
                                 '{weight} points possible (ungraded)',
                                 self.weight).format(weight=self.weight)
             else:
                 score_string = ('{0:.0f}' if self.score.is_integer() else '{0:.1f}').format(self.score)
                 if self.graded:
-                    return score_string + ungettext(
+                    return score_string + ngettext(
                                 "/{weight} point (graded)",
                                 "/{weight} points (graded)",
                                 self.weight).format(weight=self.weight)
                 elif not self.graded:
-                    return score_string + ungettext(
+                    return score_string + ngettext(
                                 "/{weight} point (ungraded)",
                                 "/{weight} points (ungraded)",
                                 self.weight).format(weight=self.weight)
@@ -407,8 +410,8 @@ class XBlockCapaMixin(XBlock):
         Generate the answer notification type and message from the current problem status.
 
         """
-        _ = self.runtime.service(self, "i18n").ugettext
-        ungettext = self.runtime.service(self, "i18n").ungettext
+        _ = self.runtime.service(self, "i18n").gettext
+        ngettext = self.runtime.service(self, "i18n").ngettext
         answer_notification_message = None
         answer_notification_type = None
 
@@ -422,21 +425,21 @@ class XBlockCapaMixin(XBlock):
         elif self.score == 0:
             answer_notification_type = 'incorrect'
             answer_notification_message= _('Incorrect.') + ' '
-            answer_notification_message =  ungettext(
+            answer_notification_message =  ngettext(
                     "Incorrect ({progress} point).",
                     "Incorrect ({progress} points).",
                     self.score
                 ).format(progress=score_string)
         elif self.score != self.weight:
             answer_notification_type = 'partially-correct'
-            answer_notification_message = ungettext(
+            answer_notification_message = ngettext(
                     "Partially correct ({progress} point).",
                     "Partially correct ({progress} points).",
                     self.score
                 ).format(progress=score_string) + ' '
         elif self.score == self.weight:
             answer_notification_type = 'correct'
-            answer_notification_message = ungettext(
+            answer_notification_message = ngettext(
                     "Correct ({progress} point).",
                     "Correct ({progress} points).",
                     self.score
@@ -486,7 +489,7 @@ class XBlockCapaMixin(XBlock):
         Emulation of init function, for translation purpose.
         """
         if not self.skip_flag:
-            _ = self.runtime.service(self, "i18n").ugettext
+            _ = self.runtime.service(self, "i18n").gettext
             self.fields['display_name']._default = _(self.fields['display_name']._default)
             self.fields['question_string']._default = _(self.fields['question_string']._default)
             self.skip_flag = True

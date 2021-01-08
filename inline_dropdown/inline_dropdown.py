@@ -7,6 +7,7 @@ from collections import OrderedDict
 import datetime
 from pytz import utc
 import random
+from future.utils import iteritems
 
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict
@@ -15,9 +16,8 @@ from xblockutils.resources import ResourceLoader
 from .utils.extensions import XBlockCapaMixin
 
 from lxml import etree
-from xml.etree import ElementTree as ET
-from xml.etree.ElementTree import Element, SubElement
-from StringIO import StringIO
+
+from six import StringIO, text_type
 
 _ = lambda text: text
 loader = ResourceLoader(__name__)
@@ -159,7 +159,7 @@ class InlineDropdownXBlock(XBlockCapaMixin):
         Save student answer
         '''
 
-        _ = self.runtime.service(self, "i18n").ugettext
+        _ = self.runtime.service(self, "i18n").gettext
         current_time = datetime.datetime.now(utc)
         # Wait time between resets: check if is too soon for submission.
 
@@ -183,9 +183,9 @@ class InlineDropdownXBlock(XBlockCapaMixin):
         self.current_feedback = '<br>'
 
         correct_count = 0
-        i18n_ = self.runtime.service(self, "i18n").ugettext
+        i18n_ = self.runtime.service(self, "i18n").gettext
         # use sorted selection_order to iterate through selections dict
-        for key,pos in sorted(self.selection_order.iteritems(), key=lambda (k,v): (v,k)):
+        for key,pos in sorted(list(iteritems(self.selection_order)), key=lambda k: k[::-1]):
             selected_text = self.selections[key]
 
             if self.correctness[key][selected_text] == 'True':
@@ -231,7 +231,7 @@ class InlineDropdownXBlock(XBlockCapaMixin):
         '''
         Reset student answer
         '''
-        _ = self.runtime.service(self, "i18n").ugettext
+        _ = self.runtime.service(self, "i18n").gettext
 
         if not self.should_show_reset_button():
             result = {
@@ -283,7 +283,7 @@ class InlineDropdownXBlock(XBlockCapaMixin):
                 try:
                     setattr(self, key, int(value))
                 except ValueError:
-                    if isinstance(value, unicode):
+                    if isinstance(value, text_type):
                         setattr(self, key, value)
             else:
                 setattr(self, key, value)
@@ -297,7 +297,7 @@ class InlineDropdownXBlock(XBlockCapaMixin):
     def send_xblock_id(self, submissions, suffix=''):
         return {
             'result': 'success',
-            'xblock_id': unicode(self.scope_ids.usage_id),
+            'xblock_id': text_type(self.scope_ids.usage_id),
         }
 
     @XBlock.json_handler
@@ -314,7 +314,7 @@ class InlineDropdownXBlock(XBlockCapaMixin):
 
     @XBlock.json_handler
     def save_state(self, submissions, suffix=''):
-        _ = self.runtime.service(self, "i18n").ugettext
+        _ = self.runtime.service(self, "i18n").gettext
         self.selections = submissions['responses']
         self.selection_order = submissions['responses_order']
         self.has_saved_answers = True
@@ -325,7 +325,7 @@ class InlineDropdownXBlock(XBlockCapaMixin):
 
     @XBlock.json_handler
     def send_hints(self, submissions, suffix=''):
-        i18n_ = self.runtime.service(self, "i18n").ugettext
+        i18n_ = self.runtime.service(self, "i18n").gettext
         tree = etree.parse(StringIO(i18n_(self.question_string)))
         raw_hints = tree.xpath('/inline_dropdown/demandhint/hint')
 
@@ -356,23 +356,25 @@ class InlineDropdownXBlock(XBlockCapaMixin):
         '''
 
         tree = etree.parse(StringIO(xmlstring))
-
+        self.correctness = {}
+        self.feedback = {}
         for input_ref in tree.iter('input_ref'):
+            input_ref.set('type','text')
             for optioninput in tree.iter('optioninput'):
-                select = Element('select')
+                # select = Element('select')
                 valuecorrectness = dict()
                 valuefeedback = dict()
                 if optioninput.attrib['id'] == input_ref.attrib['input']:
-                    newoption = SubElement(input_ref, 'option')
+                    newoption = etree.SubElement(input_ref, 'option')
                     newoption.text = ''
                     for option in self.shuffle_sequence(optioninput.iter('option')):
-                        newoption = SubElement(input_ref, 'option')
+                        newoption = etree.SubElement(input_ref, 'option')
                         newoption.text = option.text
                         valuecorrectness[option.text] = option.attrib['correct']
                         for optionhint in option.iter('optionhint'):
                             valuefeedback[option.text] = optionhint.text
                     input_ref.tag = 'select'
-                    input_ref.attrib['xblock_id'] = unicode(self.scope_ids.usage_id)
+                    input_ref.attrib['xblock_id'] = text_type(self.scope_ids.usage_id)
                     self.correctness[optioninput.attrib['id']] = valuecorrectness
                     self.feedback[optioninput.attrib['id']] = valuefeedback
 

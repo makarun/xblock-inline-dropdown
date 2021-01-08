@@ -9,21 +9,17 @@
         {% if values.values %}
                 <label class="label setting-label" for="inline_dropdown_edit_{{ key }}">{% trans values.display_name %}</label>
                 <select class="input setting-input" id="inline_dropdown_edit_{{ key }}" name="{% trans values.display_name %}">
-                {% if key in "show_reset_button" %}
-                    {% for i in values.values  %}
-                    <option value="{{ i.items.1.1 }}"
-                    {% if i.items.1.1 == values.value %} selected="selected" {% endif %}
-                    >{% trans i.items.0.1 %} </option>
-                    {% endfor %}
-                {% else %}
-                    {% for i in values.values  %}
-                    <option value="{{ i.items.1.1 }}"
-                    {% if i.items.1.1 in values.value %} selected="selected" {% endif %}
-                    >{% trans i.items.0.1 %} </option>
-                    {% endfor %}
-                {% endif %}
+                {% for i in values.values  %}
+                    <option value="{{i.value}}"
+                    {% if key in "show_reset_button" %}
+                        {% if i.value == values.value %} selected="selected" {% endif %}
+                    {% else %}
+                        {% if i.value in values.value %} selected="selected" {% endif %}
+                    {% endif %}
+                    >{% trans i.display_name %} </option>
+                {% endfor %}
                 </select>
-        {% elif key in 'max_attempts, weight, submission_max_seconds' %}
+        {% elif key in "max_attempts, weight, submission_max_seconds" %}
                 <label class="label setting-label" for="inline_dropdown_edit_{{ key }}">{% trans values.display_name %}</label>
                 <input min="0" class="input setting-input" id="inline_dropdown_edit_{{ key }}" value="{{ values.value }}" type="number">
         {% else %}
@@ -78,7 +74,7 @@
                         </div>
 
                         <div class="inline-dropdown-xml-body">
-                            <div class='codemirror-editor-wrapper'>
+                            <div class="codemirror-editor-wrapper">
                                 <textarea class="block-xml-editor edit-data">{{ xml_data }}</textarea>
                             </div>
                         </div>
