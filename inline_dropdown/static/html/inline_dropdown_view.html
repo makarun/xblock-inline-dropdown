@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<div class="problem-action-buttons-wrapper float-left float-md-right">
-				<span class="problem-action-button-wrapper">
+				<span class="problem-action-button-wrapper {% if not should_show_hint_button %} is-hidden {% endif %}">
 					<button type="button" class="hint_button problem-action-btn btn btn-sm btn-outline-primary" data-value="{% trans 'Hint' %}">
 						<i class="far fa-lightbulb"></i>
 						<span>{% trans 'Hint' %}</span>

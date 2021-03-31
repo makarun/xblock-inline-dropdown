@@ -1,10 +1,12 @@
 """ Embedded Responses XBlock main Python class """
 
+from django.template.base import Origin
 import pkg_resources
 from django.template import Context, Template
 from django.utils import translation
 import datetime
 from pytz import utc
+import re
 
 from xblock.core import XBlock
 from xblock.fields import Scope, String, List, Float, Integer, Dict, Boolean, DateTime, Sentinel
@@ -231,7 +233,8 @@ class XBlockCapaMixin(XBlock):
         main += '</br>'
 
         i = 1
-        for key, value in sorted(self.correctness.items(), key=lambda x: x[0]):
+
+        for key, value in sorted(self.correctness.items(), key=lambda x: int(re.search(r'\d+', x[0]).group())):
             correctness_list = value.items()
             for element in correctness_list:
                 if element[1]=="True":
@@ -527,6 +530,15 @@ class XBlockCapaMixin(XBlock):
                 return False
             else:
                 return True
+
+    def should_show_hint_button(self):
+        tree = etree.parse(StringIO(self.question_string))
+        raw_hints = tree.xpath('/inline_dropdown/demandhint/hint')
+
+        if len(raw_hints) >= 1:
+            return True
+        else:
+            return False
 
     def close_date(self):
         if self.graceperiod is not None and self.due:
